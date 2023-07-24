@@ -38,6 +38,12 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>com.example.storage</groupId>
+      <artifactId>restexport</artifactId>
+      <version>0.0.6-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-openfeign</artifactId>
       <version>4.0.3</version>
@@ -56,4 +62,16 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <id>tinqin-storage-repo</id>
+      <name>Tinqin Storage Repo</name>
+      <url>file:://C:/Users/alexo/.m2/repository/com/example/storage</url>
+    </repository>
+    <repository>
+      <id>tinqin-zoostore-repo</id>
+      <name>Tinqin Zoostore Repo</name>
+      <url>file:://C:/Users/alexo/.m2/repository/com/example/zoostore</url>
+    </repository>
+  </repositories>
 </project>

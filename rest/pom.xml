@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.example.bff</groupId>
         <artifactId>BFF</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>rest</artifactId>
@@ -18,13 +18,13 @@
     </properties>
 
     <build>
-        <finalName>tinqin-zoostore</finalName>
+        <finalName>tinqin-bff</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.example.zoostore.rest.BffApplication</mainClass>
+                    <mainClass>com.example.bff.rest.BffApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

@@ -17,12 +17,12 @@ public class RestClientFactory {
                 .target(ZooStoreRestClient.class, "http://localhost:8081");
     }
 
-    @Bean
-    StorageRestClient getRestExportClientStorage() {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        return Feign.builder()
-                .encoder(new JacksonEncoder(objectMapper))
-                .decoder(new JacksonDecoder(objectMapper))
-                .target(ZooStoreRestClient.class, "http://localhost:8082");
-    }
+//    @Bean
+//    StorageRestClient getRestExportClientStorage() {
+//        final ObjectMapper objectMapper = new ObjectMapper();
+//        return Feign.builder()
+//                .encoder(new JacksonEncoder(objectMapper))
+//                .decoder(new JacksonDecoder(objectMapper))
+//                .target(ZooStoreRestClient.class, "http://localhost:8082");
+//    }
 }
