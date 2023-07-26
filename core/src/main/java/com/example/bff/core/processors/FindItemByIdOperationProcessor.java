@@ -32,7 +32,7 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
             throw new ItemNotFoundException();
         }
 
-        if(itemFoundByIdInZooStore.getMultimediaIds().isEmpty()){
+        if(itemFoundByIdInZooStore.getMultimediaIds().isEmpty() || itemFoundByIdInZooStore.getMultimediaIds() == null){
             return FindItemByIdResponse.builder()
                     .id(itemFoundByIdInZooStore.getItemId())
                     .description(itemFoundByIdInZooStore.getDescription())
