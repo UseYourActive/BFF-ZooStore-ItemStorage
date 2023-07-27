@@ -1,8 +1,8 @@
 package com.example.bff.core.processors;
 
-import com.example.bff.api.operations.FindItemByIdOperation;
-import com.example.bff.api.operations.FindItemByIdRequest;
-import com.example.bff.api.operations.FindItemByIdResponse;
+import com.example.bff.api.operations.findbyid.FindItemByIdOperation;
+import com.example.bff.api.operations.findbyid.FindItemByIdRequest;
+import com.example.bff.api.operations.findbyid.FindItemByIdResponse;
 import com.example.bff.core.exceptions.ItemNotFoundException;
 import com.example.bff.restexport.StorageRestClient;
 import com.example.zoostore.restexport.ZooStoreRestClient;
@@ -32,18 +32,18 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
             throw new ItemNotFoundException();
         }
 
-        if(itemFoundByIdInZooStore.getMultimediaIds().isEmpty() || itemFoundByIdInZooStore.getMultimediaIds() == null){
-            return FindItemByIdResponse.builder()
-                    .id(itemFoundByIdInZooStore.getItemId())
-                    .description(itemFoundByIdInZooStore.getDescription())
-                    .isArchived(itemFoundByIdInZooStore.isArchived())
-                    .vendorId(itemFoundByIdInZooStore.getVendorId())
-                    .tagIds(itemFoundByIdInZooStore.getTagIds())
-                    .productName(itemFoundByIdInZooStore.getProductName())
-                    .price(itemFoundByIdInStorage.getPrice())
-                    .quantity(itemFoundByIdInStorage.getQuantity())
-                    .build();
-        }
+//        if(itemFoundByIdInZooStore.getMultimediaIds().isEmpty() || itemFoundByIdInZooStore.getMultimediaIds() == null){
+//            return FindItemByIdResponse.builder()
+//                    .id(itemFoundByIdInZooStore.getItemId())
+//                    .description(itemFoundByIdInZooStore.getDescription())
+//                    .isArchived(itemFoundByIdInZooStore.isArchived())
+//                    .vendorId(itemFoundByIdInZooStore.getVendorId())
+//                    .tagIds(itemFoundByIdInZooStore.getTagIds())
+//                    .productName(itemFoundByIdInZooStore.getProductName())
+//                    .price(itemFoundByIdInStorage.getPrice())
+//                    .quantity(itemFoundByIdInStorage.getQuantity())
+//                    .build();
+//        }
 
         return FindItemByIdResponse.builder()
                 .id(itemFoundByIdInZooStore.getItemId())

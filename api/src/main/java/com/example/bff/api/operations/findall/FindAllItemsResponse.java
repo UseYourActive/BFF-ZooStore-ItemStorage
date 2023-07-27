@@ -1,4 +1,4 @@
-package com.example.bff.api.operations;
+package com.example.bff.api.operations.findall;
 
 import com.example.bff.api.base.OperationResult;
 import lombok.*;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class FindItemByIdResponse implements OperationResult {
+public class FindAllItemsResponse implements OperationResult {
     private UUID id;
     private String productName;
     private String description;

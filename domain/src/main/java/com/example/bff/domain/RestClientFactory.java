@@ -16,7 +16,7 @@ public class RestClientFactory {
     private final ObjectMapper objectMapper;
 
     @Bean
-    ZooStoreRestClient getRestExportClientStore() {
+    ZooStoreRestClient getRestExportClientZooStore() {
         return Feign.builder()
                 .encoder(new JacksonEncoder(objectMapper))
                 .decoder(new JacksonDecoder(objectMapper))
