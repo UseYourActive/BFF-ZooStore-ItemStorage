@@ -1,13 +1,8 @@
 package com.example.bff.rest.controllers;
 
-import com.example.bff.api.operations.findall.FindAllItemsOperation;
-import com.example.bff.api.operations.findall.FindAllItemsRequest;
-import com.example.bff.api.operations.findall.FindAllItemsResponse;
 import com.example.bff.api.operations.findbyid.FindItemByIdOperation;
 import com.example.bff.api.operations.findbyid.FindItemByIdRequest;
 import com.example.bff.api.operations.findbyid.FindItemByIdResponse;
-import com.example.zoostore.api.operations.item.findall.FindAllItemsInput;
-import com.example.zoostore.api.operations.item.findall.FindAllItemsResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,27 +17,30 @@ import java.util.UUID;
 @RestController
 public class ItemController {
     private final FindItemByIdOperation findItemByIdOperation;
-    private final FindAllItemsOperation findAllItemsOperation;
+    //private final FindAllItemsOperation findAllItemsOperation;
 
+    //@PreAuthorize()
     @GetMapping("/find/{id}")
     public ResponseEntity<FindItemByIdResponse> findItemById(@PathVariable @org.hibernate.validator.constraints.UUID String id){
-        return new ResponseEntity<>(findItemByIdOperation.process(FindItemByIdRequest.builder()
+        FindItemByIdRequest build = FindItemByIdRequest.builder()
                 .itemId(UUID.fromString(id))
-                .build()), HttpStatus.OK);
-    }
-
-    @GetMapping("/find-all")
-    public ResponseEntity<FindAllItemsResponse> findItemById(@RequestParam Boolean includeArchived,
-                                                             @RequestParam Integer pageNumber,
-                                                             @RequestParam Integer numberOfItemsPerPage,
-                                                             @RequestParam @org.hibernate.validator.constraints.UUID String tagId){
-        FindAllItemsRequest build = FindAllItemsRequest.builder()
-                .includeArchived(includeArchived)
-                .numberOfItemsPerPage(numberOfItemsPerPage)
-                .pageNumber(pageNumber)
-                .tagId(tagId)
                 .build();
 
-        return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
+        return new ResponseEntity<>(findItemByIdOperation.process(build), HttpStatus.OK);
     }
+
+//    @GetMapping("/find-all")
+//    public ResponseEntity<FindAllItemsResponse> findItemById(@RequestParam Boolean includeArchived,
+//                                                             @RequestParam Integer pageNumber,
+//                                                             @RequestParam Integer numberOfItemsPerPage,
+//                                                             @RequestParam @org.hibernate.validator.constraints.UUID String tagId){
+//        FindAllItemsRequest build = FindAllItemsRequest.builder()
+//                .includeArchived(includeArchived)
+//                .numberOfItemsPerPage(numberOfItemsPerPage)
+//                .pageNumber(pageNumber)
+//                .tagId(tagId)
+//                .build();
+//
+//        return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
+//    }
 }
