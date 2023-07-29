@@ -23,7 +23,7 @@ public class ItemController {
     private final FindAllItemsOperation findAllItemsOperation;
 
     //@PreAuthorize()
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<FindItemByIdResponse> findItemById(@PathVariable @org.hibernate.validator.constraints.UUID String id){
         FindItemByIdRequest build = FindItemByIdRequest.builder()
                 .itemId(UUID.fromString(id))
