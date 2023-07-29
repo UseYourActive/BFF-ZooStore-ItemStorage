@@ -4,7 +4,7 @@ import com.example.bff.api.operations.findbyid.FindItemByIdOperation;
 import com.example.bff.api.operations.findbyid.FindItemByIdRequest;
 import com.example.bff.api.operations.findbyid.FindItemByIdResponse;
 import com.example.bff.core.exceptions.ItemNotFoundException;
-import com.example.bff.restexport.StorageRestClient;
+import com.example.storage.restexport.StorageRestClient;
 import com.example.zoostore.restexport.ZooStoreRestClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

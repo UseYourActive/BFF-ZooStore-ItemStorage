@@ -1,5 +1,8 @@
 package com.example.bff.rest.controllers;
 
+import com.example.bff.api.operations.findall.FindAllItemsOperation;
+import com.example.bff.api.operations.findall.FindAllItemsRequest;
+import com.example.bff.api.operations.findall.FindAllItemsResponse;
 import com.example.bff.api.operations.findbyid.FindItemByIdOperation;
 import com.example.bff.api.operations.findbyid.FindItemByIdRequest;
 import com.example.bff.api.operations.findbyid.FindItemByIdResponse;
@@ -17,7 +20,7 @@ import java.util.UUID;
 @RestController
 public class ItemController {
     private final FindItemByIdOperation findItemByIdOperation;
-    //private final FindAllItemsOperation findAllItemsOperation;
+    private final FindAllItemsOperation findAllItemsOperation;
 
     //@PreAuthorize()
     @GetMapping("/find/{id}")
@@ -29,18 +32,18 @@ public class ItemController {
         return new ResponseEntity<>(findItemByIdOperation.process(build), HttpStatus.OK);
     }
 
-//    @GetMapping("/find-all")
-//    public ResponseEntity<FindAllItemsResponse> findItemById(@RequestParam Boolean includeArchived,
-//                                                             @RequestParam Integer pageNumber,
-//                                                             @RequestParam Integer numberOfItemsPerPage,
-//                                                             @RequestParam @org.hibernate.validator.constraints.UUID String tagId){
-//        FindAllItemsRequest build = FindAllItemsRequest.builder()
-//                .includeArchived(includeArchived)
-//                .numberOfItemsPerPage(numberOfItemsPerPage)
-//                .pageNumber(pageNumber)
-//                .tagId(tagId)
-//                .build();
-//
-//        return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
-//    }
+    @GetMapping()
+    public ResponseEntity<FindAllItemsResponse> findItemById(@RequestParam Boolean includeArchived,
+                                                             @RequestParam Integer pageNumber,
+                                                             @RequestParam Integer numberOfItemsPerPage,
+                                                             @RequestParam @org.hibernate.validator.constraints.UUID String tagId){
+        FindAllItemsRequest build = FindAllItemsRequest.builder()
+                .includeArchived(includeArchived)
+                .numberOfItemsPerPage(numberOfItemsPerPage)
+                .pageNumber(pageNumber)
+                .tagId(tagId)
+                .build();
+
+        return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
+    }
 }
