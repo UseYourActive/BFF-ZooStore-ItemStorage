@@ -1,4 +1,4 @@
-package com.example.bff.rest.config;
+package com.example.bff.rest.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
