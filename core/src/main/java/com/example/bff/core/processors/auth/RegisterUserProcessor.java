@@ -1,8 +1,8 @@
-package com.example.bff.core.processors;
+package com.example.bff.core.processors.auth;
 
-import com.example.bff.api.operations.RegisterRequest;
-import com.example.bff.api.operations.RegisterResponse;
-import com.example.bff.api.operations.RegistrationOperation;
+import com.example.bff.api.operations.auth.register.RegisterUserRequest;
+import com.example.bff.api.operations.auth.register.RegisterUserResponse;
+import com.example.bff.api.operations.auth.register.RegisterUserOperation;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class RegistrationProcessor implements RegistrationOperation {
+public class RegisterUserProcessor implements RegisterUserOperation {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public RegisterResponse process(RegisterRequest registerRequest) {
+    public RegisterUserResponse process(RegisterUserRequest registerRequest) {
         User user = User.builder()
                 .firstName(registerRequest.getFirstName())
                 .lastName(registerRequest.getLastName())
@@ -27,7 +27,7 @@ public class RegistrationProcessor implements RegistrationOperation {
 
        User saved = userRepository.save(user);
 
-        return RegisterResponse.builder()
+        return RegisterUserResponse.builder()
                 .firstName(saved.getFirstName())
                 .lastName(saved.getLastName())
                 .email(saved.getEmail())
