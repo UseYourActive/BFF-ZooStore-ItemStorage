@@ -9,6 +9,7 @@ import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsResponse;
 import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartOperation;
 import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartRequest;
 import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +25,17 @@ public class CartItemController {
     private final FindAllCartItemsOperation findAllCartItemsOperation;
 
     @GetMapping()
-    public ResponseEntity<FindAllCartItemsResponse> listAllItemsInCart(FindAllCartItemsRequest request){
+    public ResponseEntity<FindAllCartItemsResponse> listAllItemsInCart(@RequestBody @Valid FindAllCartItemsRequest request){
         return new ResponseEntity<>(findAllCartItemsOperation.process(request), HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AddItemToCartResponse> addItemToCart(AddItemToCartRequest request){
+    public ResponseEntity<AddItemToCartResponse> addItemToCart(@RequestBody @Valid AddItemToCartRequest request){
         return new ResponseEntity<>(addItemToCartOperation.process(request), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/remove")
-    public ResponseEntity<RemoveItemFromCartResponse> removeItemFromCart(RemoveItemFromCartRequest request){
+    public ResponseEntity<RemoveItemFromCartResponse> removeItemFromCart(@RequestBody @Valid RemoveItemFromCartRequest request){
         return new ResponseEntity<>(removeItemFromCartOperation.process(request), HttpStatus.OK);
     }
 }
