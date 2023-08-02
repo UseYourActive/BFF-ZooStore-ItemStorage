@@ -1,8 +1,8 @@
-package com.example.bff.core.processors;
+package com.example.bff.core.processors.item.findbyid;
 
-import com.example.bff.api.operations.findbyid.FindItemByIdOperation;
-import com.example.bff.api.operations.findbyid.FindItemByIdRequest;
-import com.example.bff.api.operations.findbyid.FindItemByIdResponse;
+import com.example.bff.api.operations.item.findbyid.FindItemByIdOperation;
+import com.example.bff.api.operations.item.findbyid.FindItemByIdRequest;
+import com.example.bff.api.operations.item.findbyid.FindItemByIdResponse;
 import com.example.bff.core.exceptions.ItemNotFoundException;
 import com.example.storage.restexport.StorageRestClient;
 import com.example.zoostore.restexport.ZooStoreRestClient;

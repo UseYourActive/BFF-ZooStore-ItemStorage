@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.findall;
+package com.example.bff.api.operations.item.findall;
 
 import com.example.bff.api.base.OperationResult;
 import lombok.*;
@@ -22,4 +22,6 @@ public class FindAllItemsResponse implements OperationResult {
     private Set<UUID> multimediaIds;
     private Integer quantity;
     private BigDecimal price;
+
+    //private Set<FindAllItemsInRepo> items;
 }

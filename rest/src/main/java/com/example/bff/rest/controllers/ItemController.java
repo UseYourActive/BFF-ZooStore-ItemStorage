@@ -1,11 +1,11 @@
 package com.example.bff.rest.controllers;
 
-import com.example.bff.api.operations.findall.FindAllItemsOperation;
-import com.example.bff.api.operations.findall.FindAllItemsRequest;
-import com.example.bff.api.operations.findall.FindAllItemsResponse;
-import com.example.bff.api.operations.findbyid.FindItemByIdOperation;
-import com.example.bff.api.operations.findbyid.FindItemByIdRequest;
-import com.example.bff.api.operations.findbyid.FindItemByIdResponse;
+import com.example.bff.api.operations.item.findall.FindAllItemsOperation;
+import com.example.bff.api.operations.item.findall.FindAllItemsRequest;
+import com.example.bff.api.operations.item.findall.FindAllItemsResponse;
+import com.example.bff.api.operations.item.findbyid.FindItemByIdOperation;
+import com.example.bff.api.operations.item.findbyid.FindItemByIdRequest;
+import com.example.bff.api.operations.item.findbyid.FindItemByIdResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

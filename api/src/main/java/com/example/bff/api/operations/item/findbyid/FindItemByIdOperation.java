@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.findbyid;
+package com.example.bff.api.operations.item.findbyid;
 
 import com.example.bff.api.base.OperationProcessor;
 

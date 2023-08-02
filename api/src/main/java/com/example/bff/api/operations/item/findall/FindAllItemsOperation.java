@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.findall;
+package com.example.bff.api.operations.item.findall;
 
 import com.example.bff.api.base.OperationProcessor;
 
