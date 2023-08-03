@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
+//@EnableGlobalAuthentication
 @Configuration
 public class SecurityConfiguration {
     private final UserRepository userRepository;

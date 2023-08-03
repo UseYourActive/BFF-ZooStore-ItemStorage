@@ -3,6 +3,9 @@ package com.example.bff.rest.controllers;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartOperation;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartRequest;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartResponse;
+import com.example.bff.api.operations.cartitem.empty.EmptyCartOperation;
+import com.example.bff.api.operations.cartitem.empty.EmptyCartRequest;
+import com.example.bff.api.operations.cartitem.empty.EmptyCartResponse;
 import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsOperation;
 import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsRequest;
 import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsResponse;
@@ -23,6 +26,7 @@ public class CartItemController {
     private final AddItemToCartOperation addItemToCartOperation;
     private final RemoveItemFromCartOperation removeItemFromCartOperation;
     private final FindAllCartItemsOperation findAllCartItemsOperation;
+    private final EmptyCartOperation emptyCartOperation;
 
     @GetMapping()
     public ResponseEntity<FindAllCartItemsResponse> listAllItemsInCart(@RequestBody @Valid FindAllCartItemsRequest request){
@@ -37,5 +41,10 @@ public class CartItemController {
     @DeleteMapping("/remove")
     public ResponseEntity<RemoveItemFromCartResponse> removeItemFromCart(@RequestBody @Valid RemoveItemFromCartRequest request){
         return new ResponseEntity<>(removeItemFromCartOperation.process(request), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/empty")
+    public ResponseEntity<EmptyCartResponse> emptyItemCart(@RequestBody @Valid EmptyCartRequest request){
+        return new ResponseEntity<>(emptyCartOperation.process(request), HttpStatus.OK);
     }
 }

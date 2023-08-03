@@ -1,8 +1,11 @@
 package com.example.bff.core.processors.cartitem.removeitem;
 
 import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartOperation;
+import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartRepo;
 import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartRequest;
 import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartResponse;
+import com.example.bff.core.exceptions.ItemNotFoundException;
+import com.example.bff.persistence.entities.CartItem;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.CartItemRepository;
 import com.example.bff.persistence.repositories.UserRepository;
@@ -12,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class RemoveItemFromCartOperationProcessor implements RemoveItemFromCartOperation {
@@ -20,7 +25,27 @@ public class RemoveItemFromCartOperationProcessor implements RemoveItemFromCartO
 
     @Override
     public RemoveItemFromCartResponse process(final RemoveItemFromCartRequest removeItemFromCartRequest) {
-        return null;
+        User user = getAuthenticatedUser();
+
+        CartItem cartItem = cartItemRepository.findById(removeItemFromCartRequest.getTargetItemId())
+                .orElseThrow(ItemNotFoundException::new);
+
+        this.cartItemRepository.delete(cartItem);
+
+        return new RemoveItemFromCartResponse(
+                user.getCartItems().stream()
+                        .map(this::mapCartItem)
+                        .collect(Collectors.toSet())
+        );
+    }
+
+    private RemoveItemFromCartRepo mapCartItem(CartItem cartItem){
+        return RemoveItemFromCartRepo.builder()
+                .userId(cartItem.getUser().getId())
+                .price(cartItem.getPrice())
+                .quantity(cartItem.getQuantity())
+                .targetItemId(cartItem.getTargetItem())
+                .build();
     }
 
     private User getAuthenticatedUser() {

@@ -32,10 +32,4 @@ public class AuthenticationController {
         headers.add("Authorization", result.getJwt());
         return new ResponseEntity<>(headers, HttpStatus.OK);
     }
-
-    @GetMapping//TODO
-//    @Parameter(name = "Authorization",in = ParameterIn.HEADER,schema  = @Schema(name = "Schema", description = "Schema", example = "Subscription example"))
-    public String test(){
-        return "Hello auth user.";
-    }
 }

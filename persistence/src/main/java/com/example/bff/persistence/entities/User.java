@@ -3,7 +3,8 @@ package com.example.bff.persistence.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -31,5 +32,17 @@ public class User {
 
     @OneToMany()
 //    @JoinColumn(name = "user_id")
-    private List<CartItem> cartItems;
+    private Set<CartItem> cartItems;
+
+    public void addItemToCart(CartItem cartItem){
+        this.cartItems.add(cartItem);
+    }
+
+    public void removeItemFromCart(CartItem cartItem){
+        this.cartItems.remove(cartItem);
+    }
+
+    public void removeItemFromCart(UUID cartItemId) {
+        this.cartItems.removeIf(cartItem -> cartItem.getTargetItem().equals(cartItemId));
+    }
 }

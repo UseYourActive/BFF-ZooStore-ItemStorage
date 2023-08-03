@@ -1,6 +1,5 @@
-package com.example.bff.api.operations.cartitem.additem;
+package com.example.bff.api.operations.cartitem.removeitem;
 
-import com.example.bff.api.base.OperationResult;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -11,9 +10,9 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class AddItemToCartResponse implements OperationResult {
-    private UUID userId;
+public class RemoveItemFromCartRepo {
     private UUID targetItemId;
+    private UUID userId;
     private BigDecimal price;
     private Integer quantity;
 }
