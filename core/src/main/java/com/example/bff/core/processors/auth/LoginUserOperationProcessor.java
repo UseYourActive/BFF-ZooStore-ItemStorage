@@ -13,7 +13,7 @@ public class LoginUserOperationProcessor implements LoginUserOperation {
     private final JwtManager jwtManager;
 
     @Override
-    public LoginUserResponse process(LoginUserRequest request) {
+    public LoginUserResponse process(final LoginUserRequest request) {
         return LoginUserResponse.builder()
                 .jwt(this.jwtManager.generateJwt(request))
                 .build();

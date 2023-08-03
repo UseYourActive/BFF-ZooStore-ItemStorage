@@ -16,7 +16,7 @@ public class RegisterUserProcessor implements RegisterUserOperation {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public RegisterUserResponse process(RegisterUserRequest registerRequest) {
+    public RegisterUserResponse process(final RegisterUserRequest registerRequest) {
         User user = User.builder()
                 .firstName(registerRequest.getFirstName())
                 .lastName(registerRequest.getLastName())

@@ -13,11 +13,12 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 @RequiredArgsConstructor
 @Component
 public class JwtManager {
-    private final Duration TOKEN_VALIDITY = Duration.of(30, ChronoUnit.DAYS);
+    private static final Duration TOKEN_VALIDITY = Duration.of(30, ChronoUnit.DAYS);
     private final ApplicationUserDetailsService applicationUserDetailsService;
 
     @Value("${jwt-secret}")
@@ -26,13 +27,15 @@ public class JwtManager {
     public String generateJwt(LoginUserRequest request) {
         UserDetails userDetails = applicationUserDetailsService.loadUserByUsername(request.getEmail());
 
+        Instant expiration = Instant.now().plus(TOKEN_VALIDITY);
+
         return JWT.create()
                 .withClaim("email", userDetails.getUsername())
                 .withClaim("roles", userDetails.getAuthorities()
                         .stream().map(GrantedAuthority::getAuthority)
                         .toList())
-                .withIssuedAt(Instant.now())
-                .withExpiresAt(Instant.now().plus(TOKEN_VALIDITY))
+                .withIssuedAt(Date.from(Instant.now()))
+                .withExpiresAt(expiration)
                 .sign(Algorithm.HMAC256(jwtSecret));
     }
 
@@ -43,5 +46,13 @@ public class JwtManager {
                 .verify(jwt);
 
         return decoded.getClaim("email").asString();
+    }
+
+    public Instant getTokenExpiration(String jwt) {
+        DecodedJWT decoded = JWT.require(Algorithm.HMAC256(jwtSecret))
+                .build()
+                .verify(jwt);
+
+        return decoded.getExpiresAt().toInstant();
     }
 }

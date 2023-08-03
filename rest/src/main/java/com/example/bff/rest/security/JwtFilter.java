@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +26,9 @@ public class JwtFilter extends OncePerRequestFilter {
     private final ApplicationUserDetailsService applicationUserDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    @NotNull HttpServletResponse response,
+                                    @NotNull FilterChain filterChain) throws ServletException, IOException {
         Optional<String> header = Optional.ofNullable(request.getHeader("Authorization"));
         if (header.isEmpty()) {
             filterChain.doFilter(request, response);
@@ -47,6 +50,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 PrintWriter printWriter = response.getWriter();
                 printWriter.print("Invalid token.");
                 printWriter.flush();
+            } finally {
+                response.getWriter().close();
             }
         }
     }

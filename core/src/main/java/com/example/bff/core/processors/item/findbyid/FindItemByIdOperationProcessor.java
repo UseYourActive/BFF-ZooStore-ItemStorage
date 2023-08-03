@@ -16,7 +16,7 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
     private final StorageRestClient storageRestClient;
 
     @Override
-    public FindItemByIdResponse process(FindItemByIdRequest findItemByIdRequest) {
+    public FindItemByIdResponse process(final FindItemByIdRequest findItemByIdRequest) {
         com.example.zoostore.api.operations.item.findbyid.FindItemByIdResponse itemFoundByIdInZooStore;
         com.example.storage.api.operations.findbyid.FindItemByIdResponse itemFoundByIdInStorage;
 
@@ -31,19 +31,6 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
         }catch (Exception e){
             throw new ItemNotFoundException();
         }
-
-//        if(itemFoundByIdInZooStore.getMultimediaIds().isEmpty() || itemFoundByIdInZooStore.getMultimediaIds() == null){
-//            return FindItemByIdResponse.builder()
-//                    .id(itemFoundByIdInZooStore.getItemId())
-//                    .description(itemFoundByIdInZooStore.getDescription())
-//                    .isArchived(itemFoundByIdInZooStore.isArchived())
-//                    .vendorId(itemFoundByIdInZooStore.getVendorId())
-//                    .tagIds(itemFoundByIdInZooStore.getTagIds())
-//                    .productName(itemFoundByIdInZooStore.getProductName())
-//                    .price(itemFoundByIdInStorage.getPrice())
-//                    .quantity(itemFoundByIdInStorage.getQuantity())
-//                    .build();
-//        }
 
         return FindItemByIdResponse.builder()
                 .id(itemFoundByIdInZooStore.getItemId())

@@ -18,7 +18,7 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
 
 
     @Override
-    public FindAllItemsResponse process(FindAllItemsRequest findAllItemsRequest) {
+    public FindAllItemsResponse process(final FindAllItemsRequest findAllItemsRequest) {
         com.example.zoostore.api.operations.item.findall.FindAllItemsResponse allItems;
         FindAllStorageItemResponse allStorageItems;
 

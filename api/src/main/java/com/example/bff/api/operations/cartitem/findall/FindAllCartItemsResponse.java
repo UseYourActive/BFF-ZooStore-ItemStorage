@@ -9,7 +9,7 @@ import java.util.Set;
 @Setter(AccessLevel.PRIVATE)
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+//@AllArgsConstructor
 public class FindAllCartItemsResponse implements OperationResult {
     //private Set<FindAllCartItemsInRepo> items;
 }
