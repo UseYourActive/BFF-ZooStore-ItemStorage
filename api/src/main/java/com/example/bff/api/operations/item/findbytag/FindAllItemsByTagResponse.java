@@ -7,6 +7,6 @@ import lombok.*;
 @Setter(AccessLevel.PRIVATE)
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-public class FindItemByTagResponse implements OperationResult {
+//@AllArgsConstructor
+public class FindAllItemsByTagResponse implements OperationResult {
 }

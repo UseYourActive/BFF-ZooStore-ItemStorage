@@ -6,6 +6,9 @@ import com.example.bff.api.operations.item.findall.FindAllItemsResponse;
 import com.example.bff.api.operations.item.findbyid.FindItemByIdOperation;
 import com.example.bff.api.operations.item.findbyid.FindItemByIdRequest;
 import com.example.bff.api.operations.item.findbyid.FindItemByIdResponse;
+import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagRequest;
+import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagResponse;
+import com.example.bff.core.processors.item.findbytag.FindAllItemByTagOperationProcessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,7 @@ import java.util.UUID;
 public class ItemController {
     private final FindItemByIdOperation findItemByIdOperation;
     private final FindAllItemsOperation findAllItemsOperation;
+    private final FindAllItemByTagOperationProcessor findAllItemByTagOperation;
 
     //@PreAuthorize()
     @GetMapping("/{id}")
@@ -45,5 +49,17 @@ public class ItemController {
                 .build();
 
         return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
+    }
+
+    public ResponseEntity<FindAllItemsByTagResponse> findItemsByTag(@RequestParam @org.hibernate.validator.constraints.UUID String tagId,
+                                                                    @RequestParam Integer pageNumber,
+                                                                    @RequestParam Integer numberOfItemsPerPage){
+        FindAllItemsByTagRequest build = FindAllItemsByTagRequest.builder()
+                .tagId(UUID.fromString(tagId))
+                .numberOfItemsPerPage(numberOfItemsPerPage)
+                .pageNumber(pageNumber)
+                .build();
+
+        return new ResponseEntity<>(findAllItemByTagOperation.process(build), HttpStatus.OK);
     }
 }
