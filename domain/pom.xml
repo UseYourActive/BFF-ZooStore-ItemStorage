@@ -23,16 +23,6 @@
 <!--            <artifactId>rest</artifactId>-->
 <!--            <version>${revision}</version>-->
 <!--        </dependency>-->
-        <dependency>
-            <groupId>com.example.zoostore</groupId>
-            <artifactId>restexport</artifactId>
-            <version>${zoostore.revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.example.storage</groupId>
-            <artifactId>restexport</artifactId>
-            <version>${storage.revision}</version>
-        </dependency>
     </dependencies>
 
     <repositories>

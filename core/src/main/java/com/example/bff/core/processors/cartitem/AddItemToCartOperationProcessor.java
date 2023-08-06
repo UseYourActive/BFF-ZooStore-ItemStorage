@@ -1,15 +1,14 @@
-package com.example.bff.core.processors.cartitem.additem;
+package com.example.bff.core.processors.cartitem;
 
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartOperation;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartRequest;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartResponse;
-import com.example.bff.core.exceptions.NotEnoughOfItemQuantityException;
 import com.example.bff.persistence.entities.CartItem;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.CartItemRepository;
 import com.example.bff.persistence.repositories.UserRepository;
 import com.example.storage.restexport.StorageRestClient;
-import com.example.zoostore.api.operations.item.findbyid.FindItemByIdResponse;
+import com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse;
 import com.example.zoostore.restexport.ZooStoreRestClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -27,26 +26,21 @@ public class AddItemToCartOperationProcessor implements AddItemToCartOperation {
 
     @Override
     public AddItemToCartResponse process(final AddItemToCartRequest addItemToCartRequest) {
-        com.example.storage.api.operations.findbyid.FindItemByIdResponse foundItemInStorage;
-        FindItemByIdResponse foundItemInZooStore;
+        FindItemByIdResponse itemByIdFromZooStore;
+        com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse itemByIdFromStorage;
         User user = getAuthenticatedUser();
 
         try {
-            foundItemInZooStore = zooStoreRestClient.getItemById(String.valueOf(addItemToCartRequest.getItemId()));
+            itemByIdFromZooStore = zooStoreRestClient.getItemById(String.valueOf(addItemToCartRequest.getItemId()));
+            itemByIdFromStorage = storageRestClient.findItemById(String.valueOf(addItemToCartRequest.getItemId()));
         }catch (Exception e){
             throw new RuntimeException("No such item found in ZooStore!");
         }
 
-        try {
-            foundItemInStorage = storageRestClient.getItemById(String.valueOf(addItemToCartRequest.getItemId()));
-        }catch (Exception e){
-            throw new RuntimeException("No such item found in ZooStorage!");
-        }
-
         CartItem itemForCart = CartItem.builder()
-                .targetItem(foundItemInStorage.getId())
-                .price(foundItemInStorage.getPrice())
-                .quantity(foundItemInStorage.getQuantity())
+                .targetItem(itemByIdFromStorage.getId())
+                .price(itemByIdFromStorage.getPrice())
+                .quantity(itemByIdFromStorage.getQuantity())
                 .user(user)
                 .build();
 

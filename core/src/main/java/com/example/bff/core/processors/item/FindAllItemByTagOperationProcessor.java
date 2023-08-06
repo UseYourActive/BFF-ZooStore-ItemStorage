@@ -1,4 +1,4 @@
-package com.example.bff.core.processors.item.findbytag;
+package com.example.bff.core.processors.item;
 
 import com.example.bff.api.operations.item.findbytag.FindItemByTagOperation;
 import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagRequest;
@@ -17,8 +17,6 @@ public class FindAllItemByTagOperationProcessor implements FindItemByTagOperatio
 
     @Override
     public FindAllItemsByTagResponse process(FindAllItemsByTagRequest findItemByTagRequest) {
-//        com.example.zoostore.api.operations.item.findbytag.FindAllItemsByTagResponse itemsWithTag;
-//
 //        try {
 //            itemsWithTag = zooStoreRestClient.findItemsWithTag(String.valueOf(findItemByTagRequest.getTagId()),
 //                    findItemByTagRequest.getPageNumber(),

@@ -1,10 +1,10 @@
-package com.example.bff.core.processors.item.findall;
+package com.example.bff.core.processors.item;
 
 import com.example.bff.api.operations.item.findall.FindAllItemsOperation;
 import com.example.bff.api.operations.item.findall.FindAllItemsRequest;
 import com.example.bff.api.operations.item.findall.FindAllItemsResponse;
 import com.example.bff.core.exceptions.ItemNotFoundException;
-import com.example.storage.api.operations.findall.FindAllStorageItemResponse;
+import com.example.storage.api.operations.storageitem.find.all.FindAllStorageItemResponse;
 import com.example.storage.restexport.StorageRestClient;
 import com.example.zoostore.restexport.ZooStoreRestClient;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
 
     @Override
     public FindAllItemsResponse process(final FindAllItemsRequest findAllItemsRequest) {
-        com.example.zoostore.api.operations.item.findall.FindAllItemsResponse allItems;
+        com.example.zoostore.api.operations.item.find.all.FindAllItemsResponse allItems;
         FindAllStorageItemResponse allStorageItems;
 
         try {
@@ -27,17 +27,14 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
                     findAllItemsRequest.getPageNumber(),
                     findAllItemsRequest.getNumberOfItemsPerPage(),
                     findAllItemsRequest.getTagId());
-        }catch (Exception e){
-            throw new ItemNotFoundException();
-        }
 
-        try {
-            allStorageItems = storageRestClient.findAllStorageItems();
+                allStorageItems = storageRestClient.findAllStorageItems();
         }catch (Exception e){
             throw new ItemNotFoundException();
         }
 
         return FindAllItemsResponse.builder()
+
                 .build();
     }
 }

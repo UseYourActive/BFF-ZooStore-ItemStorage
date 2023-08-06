@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class RegisterUserProcessor implements RegisterUserOperation {
+public class RegisterUserOperationProcessor implements RegisterUserOperation {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 

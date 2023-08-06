@@ -1,4 +1,4 @@
-package com.example.bff.core.processors.cartitem.empty;
+package com.example.bff.core.processors.cartitem;
 
 import com.example.bff.api.operations.cartitem.empty.EmptyCartOperation;
 import com.example.bff.api.operations.cartitem.empty.EmptyCartRequest;

@@ -1,4 +1,4 @@
-package com.example.bff.core.processors.item.findbyid;
+package com.example.bff.core.processors.item;
 
 import com.example.bff.api.operations.item.findbyid.FindItemByIdOperation;
 import com.example.bff.api.operations.item.findbyid.FindItemByIdRequest;
@@ -17,8 +17,8 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
 
     @Override
     public FindItemByIdResponse process(final FindItemByIdRequest findItemByIdRequest) {
-        com.example.zoostore.api.operations.item.findbyid.FindItemByIdResponse itemFoundByIdInZooStore;
-        com.example.storage.api.operations.findbyid.FindItemByIdResponse itemFoundByIdInStorage;
+        com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse itemFoundByIdInZooStore;
+        com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse itemFoundByIdInStorage;
 
         try {
             itemFoundByIdInZooStore = zooStoreRestClient.getItemById(String.valueOf(findItemByIdRequest.getItemId()));
@@ -27,7 +27,7 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
         }
 
         try {
-            itemFoundByIdInStorage = storageRestClient.getItemById(String.valueOf(findItemByIdRequest.getItemId()));
+            itemFoundByIdInStorage = storageRestClient.findItemById(String.valueOf(findItemByIdRequest.getItemId()));
         }catch (Exception e){
             throw new ItemNotFoundException();
         }
@@ -35,7 +35,7 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
         return FindItemByIdResponse.builder()
                 .id(itemFoundByIdInZooStore.getItemId())
                 .description(itemFoundByIdInZooStore.getDescription())
-                .isArchived(itemFoundByIdInZooStore.isArchived())
+                .isArchived(itemFoundByIdInZooStore.getIsArchived())
                 .vendorId(itemFoundByIdInZooStore.getVendorId())
                 .tagIds(itemFoundByIdInZooStore.getTagIds())
                 .productName(itemFoundByIdInZooStore.getProductName())

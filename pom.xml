@@ -76,6 +76,17 @@
             <artifactId>java-jwt</artifactId>
             <version>4.4.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.example.zoostore</groupId>
+            <artifactId>restexport</artifactId>
+            <version>${zoostore.revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.example.storage</groupId>
+            <artifactId>restexport</artifactId>
+            <version>${storage.revision}</version>
+        </dependency>
     </dependencies>
 
     <build>

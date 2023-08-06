@@ -1,4 +1,4 @@
-package com.example.bff.core.processors.cartitem.removeitem;
+package com.example.bff.core.processors.cartitem;
 
 import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartOperation;
 import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartRepo;

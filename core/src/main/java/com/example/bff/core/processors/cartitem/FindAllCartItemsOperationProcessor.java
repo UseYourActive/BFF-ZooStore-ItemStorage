@@ -1,4 +1,4 @@
-package com.example.bff.core.processors.cartitem.findall;
+package com.example.bff.core.processors.cartitem;
 
 import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsInRepo;
 import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsOperation;
