@@ -51,6 +51,7 @@ public class ItemController {
         return new ResponseEntity<>(findAllItemsOperation.process(build), HttpStatus.OK);
     }
 
+    @GetMapping("/qko")
     public ResponseEntity<FindAllItemsByTagResponse> findItemsByTag(@RequestParam @org.hibernate.validator.constraints.UUID String tagId,
                                                                     @RequestParam Integer pageNumber,
                                                                     @RequestParam Integer numberOfItemsPerPage){

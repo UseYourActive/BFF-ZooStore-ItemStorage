@@ -1,13 +1,19 @@
 package com.example.bff.core.processors.item;
 
+import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagInRepo;
 import com.example.bff.api.operations.item.findbytag.FindItemByTagOperation;
 import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagRequest;
 import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagResponse;
-import com.example.bff.core.exceptions.ItemNotFoundException;
+import com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse;
 import com.example.storage.restexport.StorageRestClient;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagInRepo;
+import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagResponse;
 import com.example.zoostore.restexport.ZooStoreRestClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -17,20 +23,37 @@ public class FindAllItemByTagOperationProcessor implements FindItemByTagOperatio
 
     @Override
     public FindAllItemsByTagResponse process(FindAllItemsByTagRequest findItemByTagRequest) {
-//        try {
-//            itemsWithTag = zooStoreRestClient.findItemsWithTag(String.valueOf(findItemByTagRequest.getTagId()),
-//                    findItemByTagRequest.getPageNumber(),
-//                    findItemByTagRequest.getNumberOfItemsPerPage());
-//
-//
-//        }catch (Exception e){
-//            throw new ItemNotFoundException();
-//        }
-//
-//        return FindAllItemsByTagResponse.builder()
-//
-//                .build();
+        FindItemsByTagResponse zooStoreItemsByTagId;
 
-        return null;
+        zooStoreItemsByTagId = zooStoreRestClient.getItemByTagId(
+                findItemByTagRequest.getPageNumber(),
+                findItemByTagRequest.getNumberOfItemsPerPage(),
+                String.valueOf(findItemByTagRequest.getTagId())
+        );
+
+        List<FindAllItemsByTagInRepo> list = zooStoreItemsByTagId.getItems().stream()
+                .map(this::mapToZooStore)
+                .collect(Collectors.toList());
+
+        return FindAllItemsByTagResponse.builder()
+                .items(list)
+                .build();
+    }
+
+    private FindAllItemsByTagInRepo mapToZooStore(FindItemsByTagInRepo zooStoreItem) {
+        FindItemByIdResponse storageItem = storageRestClient.findItemById(String.valueOf(zooStoreItem.getItemId()));
+
+        return FindAllItemsByTagInRepo.builder()
+                .itemId(zooStoreItem.getItemId())
+                .storageItemId(storageItem.getId())
+                .productName(zooStoreItem.getProductName())
+                .description(zooStoreItem.getDescription())
+                .vendorId(zooStoreItem.getVendorId())
+                .multimediaIds(zooStoreItem.getMultimediaIds())
+                .tagIds(zooStoreItem.getTagIds())
+                .isArchived(zooStoreItem.getIsArchived())
+                .price(storageItem.getPrice())
+                .quantity(storageItem.getQuantity())
+                .build();
     }
 }
