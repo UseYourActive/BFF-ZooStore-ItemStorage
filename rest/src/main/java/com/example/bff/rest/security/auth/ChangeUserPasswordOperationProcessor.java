@@ -1,4 +1,4 @@
-package com.example.bff.core.processors.auth;
+package com.example.bff.rest.security.auth;
 
 import com.example.bff.api.operations.auth.changepassword.ChangeUserPasswordOperation;
 import com.example.bff.api.operations.auth.changepassword.ChangeUserPasswordRequest;

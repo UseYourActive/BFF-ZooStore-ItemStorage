@@ -1,31 +1,23 @@
-package com.example.bff.core.auth;
+package com.example.bff.rest.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@RequiredArgsConstructor
-@Component
-public class JwtManager {
-    private static final Duration TOKEN_VALIDITY = Duration.of(30, ChronoUnit.DAYS);
+@Service
+public class JwtService {
     private static final String SECRET_KEY = "Drd9QQfQcxRmqixuuZqdToPeD24vfyuD";
-
-//    @Value("${jwt-secret}")
-//    private final String jwtSecret;
-
+    private final long expiration = 1000 * 60 * 60 * 24;
     public String extractUsername(String token) {
         return extractClaims(token, Claims::getSubject);
     }
@@ -45,7 +37,7 @@ public class JwtManager {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000*60*24))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS256, getSignInKey())
                 .compact();
     }
@@ -63,18 +55,12 @@ public class JwtManager {
         return extractClaims(token, Claims::getExpiration);
     }
 
+
     private Claims extractAllClaims(String token){
         return Jwts.parser()
                 .setSigningKey(getSignInKey())
                 .parseClaimsJws(token)
                 .getBody();
-
-//        return Jwts
-//                .parserBuilder()
-//                .setSigningKey(getSignInKey())
-//                .build()
-//                .parseClaimsJws(token)
-//                .getBody();
     }
 
     private Key getSignInKey() {
