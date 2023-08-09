@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping()
+@RequestMapping("/auth")
 @RestController
 public class AuthenticationController {
     private final AuthenticationService authenticationService;

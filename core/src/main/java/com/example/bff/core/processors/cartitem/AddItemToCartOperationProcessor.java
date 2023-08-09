@@ -3,6 +3,7 @@ package com.example.bff.core.processors.cartitem;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartOperation;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartRequest;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartResponse;
+import com.example.bff.core.exceptions.ItemNotFoundException;
 import com.example.bff.persistence.entities.CartItem;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.CartItemRepository;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class AddItemToCartOperationProcessor implements AddItemToCartOperation {
+public class    AddItemToCartOperationProcessor implements AddItemToCartOperation {
     private final CartItemRepository cartItemRepository;
     private final ZooStoreRestClient zooStoreRestClient;
     private final StorageRestClient storageRestClient;
@@ -34,7 +35,7 @@ public class AddItemToCartOperationProcessor implements AddItemToCartOperation {
             itemByIdFromZooStore = zooStoreRestClient.getItemById(String.valueOf(addItemToCartRequest.getItemId()));
             itemByIdFromStorage = storageRestClient.findItemById(String.valueOf(addItemToCartRequest.getItemId()));
         }catch (Exception e){
-            throw new RuntimeException("No such item found in ZooStore!");
+            throw new ItemNotFoundException();
         }
 
         CartItem itemForCart = CartItem.builder()
