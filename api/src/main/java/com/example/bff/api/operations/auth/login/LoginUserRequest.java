@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class LoginUserRequest implements OperationInput{
-    @Email
+    //@Email
     private String email;
 
     @NotEmpty

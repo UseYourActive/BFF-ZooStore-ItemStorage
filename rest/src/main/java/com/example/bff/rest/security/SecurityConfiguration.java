@@ -24,14 +24,22 @@ public class SecurityConfiguration {
        return http
                .csrf(AbstractHttpConfigurer::disable)
                .authorizeHttpRequests(authorize -> authorize
-                       .requestMatchers(
-                               "/v3/api-docs/**",
-                               "/swagger-ui/**",
-                               "/login",
-                               "/register")
-                       .permitAll()
-                       .anyRequest()
-                       .authenticated())
+//                       .requestMatchers(
+//                               "/v2/api-docs",
+//                               "/v3/api-docs",
+//                               "/v3/api-docs/**",
+//                               "/swagger-resources",
+//                               "/swagger-resources/**",
+//                               "/configuration/ui",
+//                               "/configuration/security",
+//                               "/swagger-ui/**",
+//                               "/webjars/**",
+//                               "/swagger-ui.html",
+//                               "/auth/login",
+//                               "/auth/register")
+//                       .permitAll()
+                       .anyRequest().permitAll())
+                       //.authenticated())
                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                .authenticationProvider(authenticationProvider)
                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

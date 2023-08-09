@@ -25,6 +25,7 @@
         <revision>0.0.1-SNAPSHOT</revision>
         <zoostore.revision>0.0.4-SNAPSHOT</zoostore.revision>
         <storage.revision>0.0.6-SNAPSHOT</storage.revision>
+        <jjwt.revision>0.11.5</jjwt.revision>
         <java.version>17</java.version>
     </properties>
     <dependencies>
@@ -71,25 +72,25 @@
             <version>3.1.2</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>4.4.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.auth0</groupId>-->
+<!--            <artifactId>java-jwt</artifactId>-->
+<!--            <version>4.4.0</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>0.11.5</version>
+            <version>${jjwt.revision}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
+            <version>${jjwt.revision}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.5</version>
+            <version>${jjwt.revision}</version>
         </dependency>
 
         <dependency>

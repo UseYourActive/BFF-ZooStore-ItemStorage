@@ -7,6 +7,7 @@ import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.UserRepository;
 import com.example.bff.rest.BffApplication;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = BffApplication.class)
 //@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
+//@RequiredArgsConstructor
 @PropertySource("classpath:tests.properties")
 public class UserControllerTest {
     @Autowired
@@ -37,6 +39,13 @@ public class UserControllerTest {
     @Autowired
     private UserRepository userRepository;
     private User user;
+
+//    @Autowired
+//    public UserControllerTest(MockMvc mockMvc, ObjectMapper objectMapper, UserRepository userRepository) {
+//        this.mockMvc = mockMvc;
+//        this.objectMapper = objectMapper;
+//        this.userRepository = userRepository;
+//    }
 
     @BeforeEach
     void setUp() {
