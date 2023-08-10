@@ -13,6 +13,18 @@
   </licenses>
   <dependencies>
     <dependency>
+      <groupId>com.example.storage</groupId>
+      <artifactId>restexport</artifactId>
+      <version>0.0.6-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.example.zoostore</groupId>
+      <artifactId>restexport</artifactId>
+      <version>0.0.4-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.28</version>
@@ -56,12 +68,6 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.auth0</groupId>
-      <artifactId>java-jwt</artifactId>
-      <version>4.4.0</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-impl</artifactId>
       <version>0.11.5</version>
@@ -77,18 +83,6 @@
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-jackson</artifactId>
       <version>0.11.5</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.example.zoostore</groupId>
-      <artifactId>restexport</artifactId>
-      <version>0.0.4-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.example.storage</groupId>
-      <artifactId>restexport</artifactId>
-      <version>0.0.6-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

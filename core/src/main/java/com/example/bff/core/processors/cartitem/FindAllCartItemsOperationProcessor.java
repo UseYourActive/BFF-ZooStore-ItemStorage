@@ -9,9 +9,6 @@ import com.example.bff.persistence.entities.CartItem;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -23,13 +20,14 @@ public class FindAllCartItemsOperationProcessor implements FindAllCartItemsOpera
 
     @Override
     public FindAllCartItemsResponse process(final FindAllCartItemsRequest findAllCartItemsRequest) {
-        User user = getAuthenticatedUser();
+        //User user = getAuthenticatedUser();
 
-        return new FindAllCartItemsResponse(
-                user.getCartItems().stream()
-                        .map(this::mapCartItem)
-                        .collect(Collectors.toSet())
-        );
+        return null;
+//        return new FindAllCartItemsResponse(
+//                user.getCartItems().stream()
+//                        .map(this::mapCartItem)
+//                        .collect(Collectors.toSet())
+//        );
     }
 
     private FindAllCartItemsInRepo mapCartItem(CartItem cartItem){
@@ -41,11 +39,11 @@ public class FindAllCartItemsOperationProcessor implements FindAllCartItemsOpera
                 .build();
     }
 
-    private User getAuthenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-
-        return userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("The email you entered does not exist!"));
-    }
+//    private User getAuthenticatedUser() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String email = authentication.getName();
+//
+//        return userRepository.findUserByEmail(email)
+//                .orElseThrow(() -> new UsernameNotFoundException("The email you entered does not exist!"));
+//    }
 }

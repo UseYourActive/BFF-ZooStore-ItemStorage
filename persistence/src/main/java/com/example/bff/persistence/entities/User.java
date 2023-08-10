@@ -2,10 +2,12 @@ package com.example.bff.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @Entity
@@ -16,6 +18,17 @@ import java.util.*;
 @NoArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
+    @Builder
+    public User(String email, String password, String firstName, String lastName, String phoneNumber, Timestamp registeredOn) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.registeredOn = registeredOn;
+        counter++;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -31,23 +44,20 @@ public class User implements UserDetails {
 
     private String phoneNumber;
 
+    private static Integer counter;
+
+    @CreationTimestamp
+    private Timestamp registeredOn;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany()
 //    @JoinColumn(name = "user_id")
-    private Set<CartItem> cartItems;
+    private List<CartItem> cartItems;
 
-    public void addItemToCart(CartItem cartItem){
-        this.cartItems.add(cartItem);
-    }
-
-    public void removeItemFromCart(CartItem cartItem){
-        this.cartItems.remove(cartItem);
-    }
-
-    public void removeItemFromCart(UUID cartItemId) {
-        this.cartItems.removeIf(cartItem -> cartItem.getTargetItem().equals(cartItemId));
+    public boolean isWinner(){
+        return counter % 100 == 0;
     }
 
     @Override

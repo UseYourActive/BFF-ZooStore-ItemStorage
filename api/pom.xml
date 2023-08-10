@@ -12,8 +12,18 @@
     <artifactId>api</artifactId>
 
     <dependencies>
+<!--    <dependency>-->
+<!--        <groupId>com.example.zoostore</groupId>-->
+<!--        <artifactId>api</artifactId>-->
+<!--        <version>${zoostore.revision}</version>-->
+<!--    </dependency>-->
 
-    </dependencies>
+<!--    <dependency>-->
+<!--        <groupId>com.example.storage</groupId>-->
+<!--        <artifactId>api</artifactId>-->
+<!--        <version>${storage.revision}</version>-->
+<!--    </dependency>-->
+</dependencies>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

@@ -10,9 +10,6 @@ import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.CartItemRepository;
 import com.example.bff.persistence.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -25,18 +22,20 @@ public class RemoveItemFromCartOperationProcessor implements RemoveItemFromCartO
 
     @Override
     public RemoveItemFromCartResponse process(final RemoveItemFromCartRequest removeItemFromCartRequest) {
-        User user = getAuthenticatedUser();
+        //User user = getAuthenticatedUser();
 
-        CartItem cartItem = cartItemRepository.findById(removeItemFromCartRequest.getTargetItemId())
-                .orElseThrow(ItemNotFoundException::new);
+//        CartItem cartItem = cartItemRepository.findById(removeItemFromCartRequest.getTargetItemId())
+//                .orElseThrow(ItemNotFoundException::new);
+//
+//        this.cartItemRepository.delete(cartItem);
+//
+//        return new RemoveItemFromCartResponse(
+//                user.getCartItems().stream()
+//                        .map(this::mapCartItem)
+//                        .collect(Collectors.toSet())
+//        );
 
-        this.cartItemRepository.delete(cartItem);
-
-        return new RemoveItemFromCartResponse(
-                user.getCartItems().stream()
-                        .map(this::mapCartItem)
-                        .collect(Collectors.toSet())
-        );
+        return null;
     }
 
     private RemoveItemFromCartRepo mapCartItem(CartItem cartItem){
@@ -48,11 +47,11 @@ public class RemoveItemFromCartOperationProcessor implements RemoveItemFromCartO
                 .build();
     }
 
-    private User getAuthenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-
-        return userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("The email you entered does not exist!"));
-    }
+//    private User getAuthenticatedUser() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String email = authentication.getName();
+//
+//        return userRepository.findUserByEmail(email)
+//                .orElseThrow(() -> new UsernameNotFoundException("The email you entered does not exist!"));
+//    }
 }

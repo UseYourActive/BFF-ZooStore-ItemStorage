@@ -1,7 +1,6 @@
 package com.example.bff.api.operations.auth.register;
 
 import com.example.bff.api.base.OperationInput;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -10,7 +9,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class RegisterUserRequest {
+public class UserRegisterRequest implements OperationInput {
     //@Email
     private String email;
 

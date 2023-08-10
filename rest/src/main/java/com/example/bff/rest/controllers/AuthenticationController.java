@@ -1,31 +1,51 @@
 package com.example.bff.rest.controllers;
 
-import com.example.bff.api.operations.auth.login.LoginUserRequest;
-import com.example.bff.api.operations.auth.login.LoginUserResponse;
-import com.example.bff.api.operations.auth.register.RegisterUserRequest;
-import com.example.bff.api.operations.auth.register.RegisterUserResponse;
-import com.example.bff.rest.security.AuthenticationService;
+import com.example.bff.api.operations.auth.changepassword.UserChangePasswordOperation;
+import com.example.bff.api.operations.auth.changepassword.UserChangePasswordRequest;
+import com.example.bff.api.operations.auth.changepassword.UserChangePasswordResponse;
+import com.example.bff.api.operations.auth.login.UserLoginOperation;
+import com.example.bff.api.operations.auth.login.UserLoginRequest;
+import com.example.bff.api.operations.auth.login.UserLoginResponse;
+import com.example.bff.api.operations.auth.register.UserRegisterOperation;
+import com.example.bff.api.operations.auth.register.UserRegisterRequest;
+import com.example.bff.api.operations.auth.register.UserRegisterResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 @RestController
 public class AuthenticationController {
-    private final AuthenticationService authenticationService;
+    private final UserRegisterOperation userRegisterOperation;
+    private final UserLoginOperation userLoginOperation;
+    private final UserChangePasswordOperation userChangePasswordOperation;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterUserResponse> register(@RequestBody @Valid RegisterUserRequest request){
-        return new ResponseEntity<>(authenticationService.register(request), HttpStatus.CREATED);
+    public ResponseEntity<UserRegisterResponse> register(@RequestBody @Valid UserRegisterRequest userRegisterRequest) {
+        UserRegisterResponse registeredUserResponse = this.userRegisterOperation.process(userRegisterRequest);
+
+        return ResponseEntity.status(201).body(registeredUserResponse);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginUserResponse> loginUser(@RequestBody @Valid LoginUserRequest request) {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Authorization", result.getJwt());
-        return new ResponseEntity<>(authenticationService.login(request), HttpStatus.OK);
+    public ResponseEntity<UserLoginResponse> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
+        return new ResponseEntity<>(userLoginOperation.process(userLoginRequest), HttpStatus.OK);
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<UserChangePasswordResponse> changePassword(@RequestBody @Valid UserChangePasswordRequest userChangePasswordRequest,
+                                                                     Principal principal) {
+        UserChangePasswordRequest userRequest = UserChangePasswordRequest
+                .builder()
+                .email(principal.getName())
+                .password(userChangePasswordRequest.getPassword())
+                .build();
+
+        return new ResponseEntity<>(this.userChangePasswordOperation.process(userRequest), HttpStatus.OK);
     }
 }

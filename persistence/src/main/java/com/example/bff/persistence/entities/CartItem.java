@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -35,6 +36,9 @@ public class CartItem {
 
     @ManyToOne
     private User user;
+
+    @OneToMany
+    private List<ItemReview> reviews;
 
     @Override
     public boolean equals(Object o) {

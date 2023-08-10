@@ -8,6 +8,6 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class LoginUserResponse implements OperationResult {
+public class UserLoginResponse implements OperationResult {
     private String jwt;
 }

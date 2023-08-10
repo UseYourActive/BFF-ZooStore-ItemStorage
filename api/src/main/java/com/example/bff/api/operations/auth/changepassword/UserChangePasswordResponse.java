@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.auth.register;
+package com.example.bff.api.operations.auth.changepassword;
 
 import com.example.bff.api.base.OperationResult;
 import lombok.*;
@@ -6,12 +6,11 @@ import lombok.*;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
-public class RegisterUserResponse implements OperationResult {
+public class UserChangePasswordResponse implements OperationResult {
+    private String email;
     private String firstName;
     private String lastName;
-    private String email;
     private String phoneNumber;
-    private String jwt;
 }
