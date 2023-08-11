@@ -27,8 +27,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers(
-                                        "/api/bff/users/register",
-                                        "/api/bff/users/login",
+                                        "/auth/register",
+                                        "/auth/login",
                                         "/v2/api-docs",
                                         "/v3/api-docs",
                                         "/v3/api-docs/**",
