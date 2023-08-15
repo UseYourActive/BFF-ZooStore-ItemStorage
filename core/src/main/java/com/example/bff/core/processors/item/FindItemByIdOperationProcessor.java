@@ -12,9 +12,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
-    private final ZooStoreRestClient zooStoreRestClient;
     private final StorageRestClient storageRestClient;
-
+    private final ZooStoreRestClient zooStoreRestClient;
     @Override
     public FindItemByIdResponse process(final FindItemByIdRequest findItemByIdRequest) {
         com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse itemFoundByIdInZooStore;
