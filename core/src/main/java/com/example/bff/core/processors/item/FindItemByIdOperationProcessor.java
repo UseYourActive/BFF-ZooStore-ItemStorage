@@ -21,11 +21,6 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
 
         try {
             itemFoundByIdInZooStore = zooStoreRestClient.getItemById(String.valueOf(findItemByIdRequest.getItemId()));
-        }catch (Exception e){
-            throw new ItemNotFoundException();
-        }
-
-        try {
             itemFoundByIdInStorage = storageRestClient.findItemById(String.valueOf(findItemByIdRequest.getItemId()));
         }catch (Exception e){
             throw new ItemNotFoundException();

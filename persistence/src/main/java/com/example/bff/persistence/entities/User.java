@@ -52,9 +52,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany()
-//    @JoinColumn(name = "user_id")
-    private List<CartItem> cartItems;
+    @OneToOne
+    private ShoppingCart shoppingCart;
 
     public boolean isWinner(){
         return counter % 100 == 0;

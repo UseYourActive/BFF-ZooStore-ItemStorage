@@ -12,11 +12,14 @@ import com.example.storage.restexport.StorageRestClient;
 import com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse;
 import com.example.zoostore.restexport.ZooStoreRestClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class    AddItemToCartOperationProcessor implements AddItemToCartOperation {
+public class AddItemToCartOperationProcessor implements AddItemToCartOperation {
     private final CartItemRepository cartItemRepository;
     private final ZooStoreRestClient zooStoreRestClient;
     private final StorageRestClient storageRestClient;
@@ -24,43 +27,41 @@ public class    AddItemToCartOperationProcessor implements AddItemToCartOperatio
 
     @Override
     public AddItemToCartResponse process(final AddItemToCartRequest addItemToCartRequest) {
-//        FindItemByIdResponse itemByIdFromZooStore;
-//        com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse itemByIdFromStorage;
-//        //User user = getAuthenticatedUser();
-//
-//        try {
-//            itemByIdFromZooStore = zooStoreRestClient.getItemById(String.valueOf(addItemToCartRequest.getItemId()));
-//            itemByIdFromStorage = storageRestClient.findItemById(String.valueOf(addItemToCartRequest.getItemId()));
-//        }catch (Exception e){
-//            throw new ItemNotFoundException();
-//        }
-//
-//        CartItem itemForCart = CartItem.builder()
-//                .targetItem(itemByIdFromStorage.getId())
-//                .price(itemByIdFromStorage.getPrice())
-//                .quantity(itemByIdFromStorage.getQuantity())
-//                .user(user)
-//                .build();
-//
+        FindItemByIdResponse itemByIdZooStore;
+        com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse itemByIdStorage;
+        User user = getAuthenticatedUser();
+
+        try {
+            itemByIdZooStore = zooStoreRestClient.getItemById(String.valueOf(addItemToCartRequest.getItemId()));
+            itemByIdStorage = storageRestClient.findItemById(String.valueOf(addItemToCartRequest.getItemId()));
+        }catch (Exception e){
+            throw new ItemNotFoundException();
+        }
+
+        CartItem itemForCart = CartItem.builder()
+                .targetItem(itemByIdStorage.getId())
+                .price(itemByIdStorage.getPrice())
+                .quantity(itemByIdStorage.getQuantity())
+                .user(user)
+                .build();
+
 //        cartItemRepository.save(itemForCart);
 //        user.getCartItems().add(itemForCart);
 //        userRepository.save(user);
-//
-//        return AddItemToCartResponse.builder()
-//                .price(itemForCart.getPrice())
-//                .quantity(itemForCart.getQuantity())
-//                .targetItemId(itemForCart.getTargetItem())
-//                .userId(itemForCart.getUser().getId())
-//                .build();
 
-        return null;
+        return AddItemToCartResponse.builder()
+                .price(itemForCart.getPrice())
+                .quantity(itemForCart.getQuantity())
+                .targetItemId(itemForCart.getTargetItem())
+                .userId(itemForCart.getUser().getId())
+                .build();
     }
 
-//    private User getAuthenticatedUser() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String email = authentication.getName();
-//
-//        return userRepository.findUserByEmail(email)
-//                .orElseThrow(() -> new UsernameNotFoundException("The email you entered does not exist!"));
-//    }
+    private User getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("The email you entered does not exist!"));
+    }
 }

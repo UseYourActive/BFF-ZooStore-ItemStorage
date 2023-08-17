@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
@@ -33,6 +31,20 @@ public class CartItem {
     private Integer quantity;
 
     private BigDecimal price;
+
+//    private UUID vendorId;
+//
+//    @ElementCollection
+//    private Set<UUID> tagIds;
+//
+//    @ElementCollection
+//    private Set<UUID> multimediaIds;
+//
+//    private String productName;
+//
+//    private String description;
+//
+//    private Boolean archived;
 
     @ManyToOne
     private User user;

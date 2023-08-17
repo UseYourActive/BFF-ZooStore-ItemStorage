@@ -1,5 +1,6 @@
 package com.example.bff.domain;
 
+import com.example.storage.restexport.StorageRestClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -8,14 +9,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ZooStoreRestClient {
+public class StorageRestClientBFF {
     @Bean
-    public ZooStoreRestClient getZooStoreRestClient(){
+    public StorageRestClient getStorageRestClient(){
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
         return Feign.builder()
                 .encoder(new JacksonEncoder(objectMapper))
                 .decoder(new JacksonDecoder(objectMapper))
-                .target(ZooStoreRestClient.class, "http://localhost:8081");
+                .target(com.example.storage.restexport.StorageRestClient.class, "http://localhost:8082");
     }
 }

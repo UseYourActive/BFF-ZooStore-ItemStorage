@@ -16,6 +16,7 @@ public class ItemReview {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private UUID itemId;
     private String comment;
     private UUID userId;
     private Integer rating;

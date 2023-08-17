@@ -16,7 +16,6 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
     private final ZooStoreRestClient zooStoreRestClient;
     private final StorageRestClient storageRestClient;
 
-
     @Override
     public FindAllItemsResponse process(final FindAllItemsRequest findAllItemsRequest) {
         com.example.zoostore.api.operations.item.find.all.FindAllItemsResponse allItems;
@@ -28,8 +27,8 @@ public class FindAllItemsOperationProcessor implements FindAllItemsOperation {
                     findAllItemsRequest.getNumberOfItemsPerPage(),
                     findAllItemsRequest.getTagId());
 
-                allStorageItems = storageRestClient.findAllStorageItems();
-        }catch (Exception e){
+            allStorageItems = storageRestClient.findAllStorageItems();
+        } catch (Exception e) {
             throw new ItemNotFoundException();
         }
 

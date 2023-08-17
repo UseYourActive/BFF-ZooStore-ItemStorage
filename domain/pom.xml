@@ -23,7 +23,6 @@
             <artifactId>restexport</artifactId>
             <version>${storage.revision}</version>
         </dependency>
-
         <dependency>
             <groupId>com.example.zoostore</groupId>
             <artifactId>restexport</artifactId>

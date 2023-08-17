@@ -14,4 +14,6 @@ public class RegisterNewItemReviewResponse implements OperationResult {
     private UUID id;
     private String comment;
     private UUID commentingUserId;
+    private UUID itemId;
+    private Integer rating;
 }

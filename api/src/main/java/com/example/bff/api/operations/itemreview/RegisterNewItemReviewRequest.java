@@ -13,4 +13,6 @@ import java.util.UUID;
 public class RegisterNewItemReviewRequest implements OperationInput {
     private String comment;
     private UUID commentingUserId;
+    private UUID itemId;
+    private Integer rating;
 }
