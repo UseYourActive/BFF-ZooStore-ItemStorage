@@ -1,6 +1,5 @@
-FROM openjdk:17-jdk-oracle
-VOLUME /tmp
-EXPOSE 8080
-ARG JAR_FILE=rest/target/tinqin-bff.jar
-ADD ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM openjdk:17
+WORKDIR /BFF-ZooStore-ItemStorage
+COPY rest/target/tinqin-bff.jar bff.jar
+EXPOSE 8083
+CMD ["java", "-jar", "bff.jar"]
