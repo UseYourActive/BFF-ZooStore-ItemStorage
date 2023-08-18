@@ -13,17 +13,17 @@ services:
     ports:
       - ${MYSQLDB_LOCAL_PORT}:${MYSQLDB_DOCKER_PORT}
 
-  zoo-trade:
+  zoo-store:
     depends_on:
       - mysql-server
-    build: ../ZooTrade
+    build: ../Zoo-Store-master
     restart: on-failure
     env_file: ./.env
     ports:
-      - "1234:8080"
+      - "1234:8081"
     environment:
       SPRING_APPLICATION_JSON: '{
-           "spring.datasource.url"  : "jdbc:mysql://mysql-server:${MYSQLDB_DOCKER_PORT}/${ZOOTRADE_DB_DATABASE}?useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true",
+           "spring.datasource.url"  : "jdbc:mysql://mysql-server:${MYSQLDB_DOCKER_PORT}/${ZOOSTORE_DB_DATABASE}?useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true",
            "spring.datasource.username" : "${ZOO_DB_USER}",
            "spring.datasource.password" : "${ZOO_DB_ROOT_PASSWORD}",
            "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQLDialect",
@@ -35,18 +35,18 @@ services:
     tty: true
 
 
-  zoo-storage:
+  item-storage:
     depends_on:
       - mysql-server
-      - zoo-trade
-    build: ../storage
+      - zoo-store
+    build: ../Item-Storage
     restart: on-failure
     env_file: ./.env
     ports:
       - "1235:8082"
     environment:
       SPRING_APPLICATION_JSON: '{
-           "spring.datasource.url"  : "jdbc:mysql://mysql-server:${MYSQLDB_DOCKER_PORT}/${ZOOSTORAGE_DB_DATABASE}?useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true",
+           "spring.datasource.url"  : "jdbc:mysql://mysql-server:${MYSQLDB_DOCKER_PORT}/${STORAGE_DB_DATABASE}?useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true",
            "spring.datasource.username" : "${ZOO_DB_USER}",
            "spring.datasource.password" : "${ZOO_DB_ROOT_PASSWORD}",
            "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQLDialect",
@@ -60,16 +60,16 @@ services:
   zoo-bff:
     depends_on:
       - mysql-server
-      - zoo-trade
-      - zoo-storage
-    build: ../ZooTradeBFF
+      - zoo-store
+      - item-storage
+    build: ../BFF-ZooStore-ItemStorage
     restart: on-failure
     env_file: ./.env
     ports:
       - "1236:8083"
     environment:
       SPRING_APPLICATION_JSON: '{
-           "spring.datasource.url"  : "jdbc:mysql://mysql-server:${MYSQLDB_DOCKER_PORT}/${ZOOBFF_DB_DATABASE}?useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true",
+           "spring.datasource.url"  : "jdbc:mysql://mysql-server:${MYSQLDB_DOCKER_PORT}/${BFF_DB_DATABASE}?useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC&allowPublicKeyRetrieval=true",
            "spring.datasource.username" : "${ZOO_DB_USER}",
            "spring.datasource.password" : "${ZOO_DB_ROOT_PASSWORD}",
            "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQLDialect",
