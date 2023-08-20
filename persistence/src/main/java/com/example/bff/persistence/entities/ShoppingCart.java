@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter(AccessLevel.PRIVATE)
@@ -23,6 +23,7 @@ public class ShoppingCart {
         this.items = items;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
+        itemsInCart++;
     }
 
     @Id
@@ -40,4 +41,6 @@ public class ShoppingCart {
 
     //@Column(nullable = false)
     private BigDecimal totalPrice;
+
+    private static Integer itemsInCart;
 }

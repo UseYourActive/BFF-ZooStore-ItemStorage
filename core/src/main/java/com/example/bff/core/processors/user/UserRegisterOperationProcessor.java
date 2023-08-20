@@ -6,6 +6,7 @@ import com.example.bff.api.operations.auth.register.UserRegisterResponse;
 import com.example.bff.core.exceptions.AlreadyExistingPhoneNumberException;
 import com.example.bff.core.exceptions.UserAlreadyExistsException;
 import com.example.bff.persistence.entities.Role;
+import com.example.bff.persistence.entities.ShoppingCart;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,7 @@ public class UserRegisterOperationProcessor implements UserRegisterOperation {
                 .firstName(firstName)
                 .lastName(lastName)
                 .phoneNumber(phoneNumber)
+                .shoppingCart(new ShoppingCart())
                 .role(role)
                 .build();
 
