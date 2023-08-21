@@ -50,9 +50,6 @@ public class User {
     @CreationTimestamp
     private Timestamp registeredOn;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
     @OneToOne
     private ShoppingCart shoppingCart;
 

@@ -38,14 +38,7 @@ public class AuthenticationController {
     }
 
     @PutMapping("/change-password")
-    public ResponseEntity<UserChangePasswordResponse> changePassword(@RequestBody @Valid UserChangePasswordRequest userChangePasswordRequest,
-                                                                     Principal principal) {
-        UserChangePasswordRequest userRequest = UserChangePasswordRequest
-                .builder()
-                .email(principal.getName())
-                .password(userChangePasswordRequest.getPassword())
-                .build();
-
-        return new ResponseEntity<>(this.userChangePasswordOperation.process(userRequest), HttpStatus.OK);
+    public ResponseEntity<UserChangePasswordResponse> changePassword(@RequestBody @Valid UserChangePasswordRequest userChangePasswordRequest) {
+        return new ResponseEntity<>(this.userChangePasswordOperation.process(userChangePasswordRequest), HttpStatus.OK);
     }
 }
