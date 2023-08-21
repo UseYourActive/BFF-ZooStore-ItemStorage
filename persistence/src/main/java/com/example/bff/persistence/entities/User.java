@@ -17,15 +17,16 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
-public class User implements UserDetails {
+public class User {
     @Builder
-    public User(String email, String password, String firstName, String lastName, String phoneNumber, Timestamp registeredOn) {
+    public User(String email, String password, String firstName, String lastName, String phoneNumber, Timestamp registeredOn, ShoppingCart shoppingCart) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.registeredOn = registeredOn;
+        this.shoppingCart = shoppingCart;
         counter++;
     }
 
@@ -57,40 +58,5 @@ public class User implements UserDetails {
 
     public boolean isWinner(){
         return counter % 100 == 0;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 }

@@ -12,7 +12,7 @@ import lombok.*;
 public class UserChangePasswordRequest implements OperationInput {
 
     @NotEmpty(message = "New password is required!")
-    private String password;
+    private String oldPassword;
 
-    private String email;
+    private String password;
 }

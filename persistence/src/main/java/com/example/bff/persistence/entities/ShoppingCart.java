@@ -12,14 +12,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter(AccessLevel.PRIVATE)
+@Setter
 @Builder
 @Entity
 @Table(name = "shopping_carts")
 public class ShoppingCart {
     @Builder
-    public ShoppingCart(UUID userId, List<CartItem> items, Integer quantity, BigDecimal totalPrice) {
-        this.userId = userId;
+    public ShoppingCart(User user, List<CartItem> items, Integer quantity, BigDecimal totalPrice) {
+        this.user = user;
         this.items = items;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
@@ -30,8 +30,8 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    //@Column(nullable = false)
-    private UUID userId;
+    @OneToOne
+    private User user;
 
     @OneToMany
     private List<CartItem> items;
