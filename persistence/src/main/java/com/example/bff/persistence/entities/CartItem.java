@@ -2,6 +2,8 @@ package com.example.bff.persistence.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -24,6 +26,7 @@ public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    //@JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
     private UUID targetItem;
