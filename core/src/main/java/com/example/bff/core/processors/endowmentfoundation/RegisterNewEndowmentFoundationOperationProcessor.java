@@ -8,6 +8,8 @@ import com.example.bff.persistence.repositories.EndowmentFoundationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @RequiredArgsConstructor
 @Service
 public class RegisterNewEndowmentFoundationOperationProcessor implements RegisterNewEndowmentFoundationOperation {
@@ -16,6 +18,7 @@ public class RegisterNewEndowmentFoundationOperationProcessor implements Registe
     @Override
     public RegisterNewEndowmentFoundationResponse process(RegisterNewEndowmentFoundationRequest registerNewEndowmentFoundationRequest) {
         EndowmentFoundation endowmentFoundation = EndowmentFoundation.builder()
+                .totalAmountOfMoney(BigDecimal.ZERO)
                 .address(registerNewEndowmentFoundationRequest.getAddress())
                 .name(registerNewEndowmentFoundationRequest.getName())
                 .donationAccount(registerNewEndowmentFoundationRequest.getDonationAccount())

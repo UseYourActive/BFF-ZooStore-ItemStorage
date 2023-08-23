@@ -18,6 +18,8 @@ public class ItemReview {
     private UUID id;
     private UUID itemId;
     private String comment;
-    private UUID userId;
+    @ManyToOne
+    //@JoinColumn(name = "user_id")
+    private User user;
     private Integer rating;
 }

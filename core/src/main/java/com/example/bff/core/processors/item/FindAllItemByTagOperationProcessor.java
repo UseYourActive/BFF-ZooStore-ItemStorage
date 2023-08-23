@@ -1,9 +1,9 @@
 package com.example.bff.core.processors.item;
 
-import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagInRepo;
-import com.example.bff.api.operations.item.findbytag.FindItemByTagOperation;
-import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagRequest;
-import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagResponse;
+import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagInRepo;
+import com.example.bff.api.operations.item.find.bytag.FindItemByTagOperation;
+import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagRequest;
+import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagResponse;
 import com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse;
 import com.example.storage.restexport.StorageRestClient;
 import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagInRepo;

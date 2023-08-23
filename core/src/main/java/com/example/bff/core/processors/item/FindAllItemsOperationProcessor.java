@@ -1,8 +1,8 @@
 package com.example.bff.core.processors.item;
 
-import com.example.bff.api.operations.item.findall.FindAllItemsOperation;
-import com.example.bff.api.operations.item.findall.FindAllItemsRequest;
-import com.example.bff.api.operations.item.findall.FindAllItemsResponse;
+import com.example.bff.api.operations.item.find.all.FindAllItemsOperation;
+import com.example.bff.api.operations.item.find.all.FindAllItemsRequest;
+import com.example.bff.api.operations.item.find.all.FindAllItemsResponse;
 import com.example.bff.core.exceptions.ItemNotFoundException;
 import com.example.storage.api.operations.storageitem.find.all.FindAllStorageItemResponse;
 import com.example.storage.restexport.StorageRestClient;

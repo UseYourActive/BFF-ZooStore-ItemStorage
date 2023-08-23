@@ -30,3 +30,5 @@ If a user doesn't buy the items from the shopping cart
 the cart will get emptied after a certain period of time.
 
 Some kind of insurance/warranty for the customer/item.
+
+PDF Generator.

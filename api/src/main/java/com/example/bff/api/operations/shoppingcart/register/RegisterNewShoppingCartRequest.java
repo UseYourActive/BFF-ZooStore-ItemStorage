@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.item.addcomment;
+package com.example.bff.api.operations.shoppingcart.register;
 
 import com.example.bff.api.base.OperationInput;
 import lombok.*;
@@ -10,8 +10,6 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class AddCommentToItemRequest implements OperationInput {
+public class RegisterNewShoppingCartRequest implements OperationInput {
     private UUID userId;
-    private UUID productId;
-    private UUID commentId;
 }

@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.item.findall;
+package com.example.bff.api.operations.item.find.all;
 
 import com.example.bff.api.base.OperationResult;
 import lombok.*;

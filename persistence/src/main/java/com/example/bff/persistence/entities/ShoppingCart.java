@@ -17,15 +17,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "shopping_carts")
 public class ShoppingCart {
-    @Builder
-    public ShoppingCart(User user, List<CartItem> items, Integer quantity, BigDecimal totalPrice) {
-        this.user = user;
-        this.items = items;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
-        itemsInCart++;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -35,12 +26,4 @@ public class ShoppingCart {
 
     @OneToMany
     private List<CartItem> items;
-
-    //@Column(nullable = false)
-    private Integer quantity;
-
-    //@Column(nullable = false)
-    private BigDecimal totalPrice;
-
-    private static Integer itemsInCart;
 }

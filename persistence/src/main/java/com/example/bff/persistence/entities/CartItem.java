@@ -17,11 +17,11 @@ import java.util.*;
 @Table(name = "cart_items")
 public class CartItem {
     @Builder
-    public CartItem(UUID referencedItemId, Integer quantity, BigDecimal price, User user) {
-        this.targetItem = referencedItemId;
+    public CartItem(UUID targetItemId, Integer quantity, BigDecimal price, List<ItemReview> reviews) {
+        this.targetItemId = targetItemId;
         this.quantity = quantity;
         this.price = price;
-        this.user = user;
+        this.reviews = reviews;
     }
 
     @Id
@@ -29,28 +29,11 @@ public class CartItem {
     //@JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
-    private UUID targetItem;
+    private UUID targetItemId;
 
     private Integer quantity;
 
     private BigDecimal price;
-
-//    private UUID vendorId;
-//
-//    @ElementCollection
-//    private Set<UUID> tagIds;
-//
-//    @ElementCollection
-//    private Set<UUID> multimediaIds;
-//
-//    private String productName;
-//
-//    private String description;
-//
-//    private Boolean archived;
-
-    @ManyToOne
-    private User user;
 
     @OneToMany
     private List<ItemReview> reviews;
@@ -60,11 +43,11 @@ public class CartItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartItem cartItem = (CartItem) o;
-        return Objects.equals(targetItem, cartItem.targetItem);
+        return Objects.equals(targetItemId, cartItem.targetItemId);
     }
 
     @Override
     public int hashCode() {
-        return targetItem.hashCode();
+        return targetItemId.hashCode();
     }
 }

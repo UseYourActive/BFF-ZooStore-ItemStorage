@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.item.addcomment;
+package com.example.bff.api.operations.item.addreview;
 
 import com.example.bff.api.base.OperationResult;
 import lombok.*;
@@ -12,11 +12,10 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class AddCommentToItemResponse implements OperationResult {
+public class AddReviewToCartItemResponse implements OperationResult {
     private UUID id;
     private UUID targetItem;
     private Integer quantity;
     private BigDecimal price;
-    private UUID user;
-    private List<UUID> comments;
+    private List<UUID> reviews;
 }

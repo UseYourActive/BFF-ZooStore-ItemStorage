@@ -1,5 +1,4 @@
-package com.example.bff.api.operations.item.findbyid;
-
+package com.example.bff.api.operations.item.addreview;
 
 import com.example.bff.api.base.OperationInput;
 import lombok.*;
@@ -11,6 +10,8 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class FindItemByIdRequest implements OperationInput {
-    private UUID itemId;
+public class AddReviewToCartItemRequest implements OperationInput {
+    private UUID userId;
+    private UUID productId;
+    private UUID commentId;
 }

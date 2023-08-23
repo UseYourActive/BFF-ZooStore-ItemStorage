@@ -1,17 +1,16 @@
-package com.example.bff.api.operations.item.findbytag;
+package com.example.bff.api.operations.item.find.all;
 
 import com.example.bff.api.base.OperationInput;
 import lombok.*;
-
-import java.util.UUID;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class FindAllItemsByTagRequest implements OperationInput {
-    private UUID tagId;
+public class FindAllItemsRequest implements OperationInput {
+    private Boolean includeArchived;
     private Integer pageNumber;
     private Integer numberOfItemsPerPage;
+    private @org.hibernate.validator.constraints.UUID String tagId;
 }

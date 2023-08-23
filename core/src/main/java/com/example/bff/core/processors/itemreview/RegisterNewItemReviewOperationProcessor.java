@@ -19,7 +19,7 @@ public class RegisterNewItemReviewOperationProcessor implements RegisterNewItemR
                 .itemId(registerNewItemReviewRequest.getItemId())
                 .comment(registerNewItemReviewRequest.getComment())
                 .rating(registerNewItemReviewRequest.getRating())
-                .userId(registerNewItemReviewRequest.getCommentingUserId())
+                //.userId(registerNewItemReviewRequest.getCommentingUserId())
                 .build();
 
         ItemReview save = itemReviewRepository.save(itemReview);
@@ -29,7 +29,7 @@ public class RegisterNewItemReviewOperationProcessor implements RegisterNewItemR
                 .id(save.getId())
                 .comment(save.getComment())
                 .rating(save.getRating())
-                .commentingUserId(save.getUserId())
+                //.commentingUserId(save.getUserId())
                 .build();
     }
 }

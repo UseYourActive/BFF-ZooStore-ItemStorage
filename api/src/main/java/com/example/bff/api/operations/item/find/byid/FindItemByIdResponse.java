@@ -1,11 +1,10 @@
-package com.example.bff.api.operations.item.findbyid;
+package com.example.bff.api.operations.item.find.byid;
 
 import com.example.bff.api.base.OperationResult;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter

@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.item.findbytag;
+package com.example.bff.api.operations.item.find.bytag;
 
 import lombok.*;
 

@@ -1,15 +1,14 @@
 package com.example.bff.rest.controllers;
 
-import com.example.bff.api.operations.item.findall.FindAllItemsOperation;
-import com.example.bff.api.operations.item.findall.FindAllItemsRequest;
-import com.example.bff.api.operations.item.findall.FindAllItemsResponse;
-import com.example.bff.api.operations.item.findbyid.FindItemByIdOperation;
-import com.example.bff.api.operations.item.findbyid.FindItemByIdRequest;
-import com.example.bff.api.operations.item.findbyid.FindItemByIdResponse;
-import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagRequest;
-import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagResponse;
+import com.example.bff.api.operations.item.find.all.FindAllItemsOperation;
+import com.example.bff.api.operations.item.find.all.FindAllItemsRequest;
+import com.example.bff.api.operations.item.find.all.FindAllItemsResponse;
+import com.example.bff.api.operations.item.find.byid.FindItemByIdOperation;
+import com.example.bff.api.operations.item.find.byid.FindItemByIdRequest;
+import com.example.bff.api.operations.item.find.byid.FindItemByIdResponse;
+import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagRequest;
+import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagResponse;
 import com.example.bff.core.processors.item.FindAllItemByTagOperationProcessor;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
