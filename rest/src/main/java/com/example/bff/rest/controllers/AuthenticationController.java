@@ -10,7 +10,9 @@ import com.example.bff.api.operations.auth.register.UserRegisterOperation;
 import com.example.bff.api.operations.auth.register.UserRegisterRequest;
 import com.example.bff.api.operations.auth.register.UserRegisterResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -28,9 +30,12 @@ public class AuthenticationController {
     private final UserLoginOperation userLoginOperation;
     private final UserChangePasswordOperation userChangePasswordOperation;
 
-    @ApiResponse(responseCode = "201", description = "User registered successfully.")
-    @ApiResponse(responseCode = "400", description = "Invalid field contents.")
-    @Operation(description = "Registers a new user.",
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Successfully registered user."),
+            @ApiResponse(responseCode = "400", description = "Bad request",
+                    content = @Content(mediaType = "text/html")),
+    })
+    @Operation(description = "Registers a new user with first name, last name, email, password, phone number",
             summary = "Registers a new user.")
     @PostMapping("/register")
     public ResponseEntity<UserRegisterResponse> register(@RequestBody @Valid UserRegisterRequest userRegisterRequest) {
@@ -39,26 +44,33 @@ public class AuthenticationController {
         return ResponseEntity.status(201).body(registeredUserResponse);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User logged."),
+            @ApiResponse(responseCode = "400", description = "Bad credentials", content = @Content(mediaType = "text/html")),
+            @ApiResponse(responseCode = "400", description = "No such username in the database.", content = @Content(mediaType = "text/html")),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "text/html")),
+    })
+    @Operation(description = "Logins user. Authenticate with email and password.",
+            summary = "Logins user.")
     @PostMapping("/login")
-    @ApiResponse(responseCode = "200", description = "Login successful.")
-    @ApiResponse(responseCode = "400", description = "Invalid field contents.")
-    @ApiResponse(responseCode = "403", description = "Invalid credentials.")
-    @Operation(description = "Checks credentials and returns JWT in response header.",
-            summary = "Login with email and password.")
-    public ResponseEntity<UserLoginResponse> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
-        UserLoginResponse result = this.userLoginOperation.process(userLoginRequest);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", result.getJwt());
-        return new ResponseEntity<>(headers, HttpStatus.OK);
+    public ResponseEntity<UserLoginResponse> login(
+            @RequestBody @Valid UserLoginRequest userLoginRequest
+    ) {
+        UserLoginResponse loggedInUserResponse = userLoginOperation.process(userLoginRequest);
+        return ResponseEntity.ok(loggedInUserResponse);
     }
 
-    @ApiResponse(responseCode = "200",description = "Password changed successfully.")
-    @ApiResponse(responseCode = "400",description = "Current or new password is empty.")
-    @ApiResponse(responseCode = "403",description = "Current password is invalid or token is blacklisted.")
-    @Operation(description = "Changes the password of the currently logged user and ends current session.",
-            summary = "Changes current password and invalidates current jwt.")
-    @PatchMapping("/change-password")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Password changed successfully."),
+            @ApiResponse(responseCode = "400", description = "Not existing user.", content = @Content(mediaType = "text/html")),
+            @ApiResponse(responseCode = "400", description = "Password must not be blank.", content = @Content(mediaType = "text/html")),
+            @ApiResponse(responseCode = "403", description = "Invalid JWT.", content = @Content(mediaType = "text/html")),
+    })
+    @Operation(description = "Changes the password of the current logged in user.",
+            summary = "Change password.")
+    @PutMapping("/changePassword")
     public ResponseEntity<UserChangePasswordResponse> changePassword(@RequestBody @Valid UserChangePasswordRequest userChangePasswordRequest) {
-        return new ResponseEntity<>(this.userChangePasswordOperation.process(userChangePasswordRequest), HttpStatus.OK);
+        UserChangePasswordResponse userWithChangedPassword = userChangePasswordOperation.process(userChangePasswordRequest);
+        return ResponseEntity.ok(userWithChangedPassword);
     }
 }
