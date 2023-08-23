@@ -9,6 +9,7 @@ import com.example.bff.api.operations.item.findbyid.FindItemByIdResponse;
 import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagRequest;
 import com.example.bff.api.operations.item.findbytag.FindAllItemsByTagResponse;
 import com.example.bff.core.processors.item.FindAllItemByTagOperationProcessor;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,7 @@ public class ItemController {
         return new ResponseEntity<>(findItemByIdOperation.process(build), HttpStatus.OK);
     }
 
+    //@SecurityRequirement(name = "Bearer Authentication")
     @GetMapping()
     public ResponseEntity<FindAllItemsResponse> findItemById(@RequestParam Boolean includeArchived,
                                                              @RequestParam Integer pageNumber,
