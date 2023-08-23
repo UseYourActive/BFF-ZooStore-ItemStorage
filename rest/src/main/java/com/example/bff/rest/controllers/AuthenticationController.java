@@ -33,7 +33,7 @@ public class AuthenticationController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successfully registered user."),
             @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content(mediaType = "text/html")),
+                    content = @Content(mediaType = "text/html"))
     })
     @Operation(description = "Registers a new user with first name, last name, email, password, phone number",
             summary = "Registers a new user.")
@@ -48,14 +48,12 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "200", description = "User logged."),
             @ApiResponse(responseCode = "400", description = "Bad credentials", content = @Content(mediaType = "text/html")),
             @ApiResponse(responseCode = "400", description = "No such username in the database.", content = @Content(mediaType = "text/html")),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "text/html")),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "text/html"))
     })
     @Operation(description = "Logins user. Authenticate with email and password.",
             summary = "Logins user.")
     @PostMapping("/login")
-    public ResponseEntity<UserLoginResponse> login(
-            @RequestBody @Valid UserLoginRequest userLoginRequest
-    ) {
+    public ResponseEntity<UserLoginResponse> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
         UserLoginResponse loggedInUserResponse = userLoginOperation.process(userLoginRequest);
         return ResponseEntity.ok(loggedInUserResponse);
     }
@@ -64,7 +62,7 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "200", description = "Password changed successfully."),
             @ApiResponse(responseCode = "400", description = "Not existing user.", content = @Content(mediaType = "text/html")),
             @ApiResponse(responseCode = "400", description = "Password must not be blank.", content = @Content(mediaType = "text/html")),
-            @ApiResponse(responseCode = "403", description = "Invalid JWT.", content = @Content(mediaType = "text/html")),
+            @ApiResponse(responseCode = "403", description = "Invalid JWT.", content = @Content(mediaType = "text/html"))
     })
     @Operation(description = "Changes the password of the current logged in user.",
             summary = "Change password.")
