@@ -9,6 +9,12 @@ public class ShoppingCartLoggerMessages {
     //endregion
 
 
+    public static final String SHOPPING_CART_EMPTIED_SUCCESSFULLY = "Shopping cart emptied successfully";
+    public static final String FOUND_SHOPPING_CART_FOR_USER = "Found shopping cart for user = {}";
+    public static final String STARTING_EMPTY_CART_OPERATION = "Starting empty cart operation";
+
+
+
     public static final String SHOPPING_CART_FOUND_IN_DATABASE_WITH_ID = "Shopping Cart has successfully been found in the database with id = {}";
 
 }

@@ -9,12 +9,18 @@ import com.example.bff.persistence.repositories.ShoppingCartRepository;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import static com.example.bff.core.config.ShoppingCartLoggerMessages.*;
+import static com.example.bff.core.config.UserLoggerMessages.AUTHENTICATED_USER;
+import static com.example.bff.core.config.UserLoggerMessages.USER_WITH_EMAIL_NOT_FOUND;
+
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class EmptyCartOperationProcessor implements EmptyCartOperation {
     private final UserRepository userRepository;
@@ -22,13 +28,19 @@ public class EmptyCartOperationProcessor implements EmptyCartOperation {
 
     @Override
     public EmptyCartResponse process(EmptyCartRequest emptyCartRequest) {
+        log.info(STARTING_EMPTY_CART_OPERATION);
+
         User user = getAuthenticatedUser();
+        log.info(AUTHENTICATED_USER, user.getEmail());
 
         ShoppingCart shoppingCart = shoppingCartRepository.findById(user.getShoppingCart().getId())
                 .orElseThrow(ShoppingCartNotFoundException::new);
+        log.info(FOUND_SHOPPING_CART_FOR_USER, user.getId());
 
         shoppingCart.getItems().clear();
         shoppingCartRepository.save(shoppingCart);
+
+        log.info(SHOPPING_CART_EMPTIED_SUCCESSFULLY);
 
         return new EmptyCartResponse();
     }
@@ -38,6 +50,9 @@ public class EmptyCartOperationProcessor implements EmptyCartOperation {
         String email = authentication.getName();
 
         return userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("The email you entered does not exist!"));
+                .orElseThrow(() -> {
+                    log.error(USER_WITH_EMAIL_NOT_FOUND, email);
+                    return new UsernameNotFoundException("The email you entered does not exist!");
+                });
     }
 }

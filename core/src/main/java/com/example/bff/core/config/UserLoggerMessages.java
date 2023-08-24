@@ -14,6 +14,6 @@ public class UserLoggerMessages {
     public static final String CREATING_USER_OBJECT_FOR_EMAIL = "Creating user object for email = {}";
     public static final String USER_REGISTRATION_PROCESS_COMPLETED_FOR_EMAIL = "User registration process completed for email = {}";
     public static final String USER_REGISTERED_SUCCESSFULLY_WITH_EMAIL = "User registered successfully with email: {}";
-
+    public static final String AUTHENTICATED_USER = "Authenticated user = {}";
 
 }
