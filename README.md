@@ -32,3 +32,5 @@ the cart will get emptied after a certain period of time.
 Some kind of insurance/warranty for the customer/item.
 
 PDF Generator.
+
+Excel file reader.

@@ -1,5 +1,6 @@
 package com.example.bff.domain;
 
+import com.example.storage.restexport.ItemStorageRestExport;
 import com.example.storage.restexport.StorageRestClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -30,12 +31,12 @@ public class StorageRestClientBFF {
     }
 
     @Bean
-    public StorageRestClient getStorageRestClient(){
+    public ItemStorageRestExport getStorageRestClient(){
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
         return Feign.builder()
                 .encoder(new JacksonEncoder(context.getBean(ObjectMapper.class)))
                 .decoder(new JacksonDecoder(context.getBean(ObjectMapper.class)))
-                .target(com.example.storage.restexport.StorageRestClient.class, ITEM_STORAGE_URL);
+                .target(ItemStorageRestExport.class, ITEM_STORAGE_URL);
     }
 }

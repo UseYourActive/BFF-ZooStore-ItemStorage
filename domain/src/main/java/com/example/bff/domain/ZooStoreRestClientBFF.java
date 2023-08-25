@@ -1,6 +1,7 @@
 package com.example.bff.domain;
 
 import com.example.zoostore.restexport.ZooStoreRestClient;
+import com.example.zoostore.restexport.ZooStoreRestExport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -20,12 +21,12 @@ public class ZooStoreRestClientBFF {
     private String ZOO_STORE_URL;
 
     @Bean
-    public ZooStoreRestClient getZooStoreRestClient(){
+    public ZooStoreRestExport getZooStoreRestClient(){
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
         return Feign.builder()
                 .encoder(new JacksonEncoder(context.getBean(ObjectMapper.class)))
                 .decoder(new JacksonDecoder(context.getBean(ObjectMapper.class)))
-                .target(ZooStoreRestClient.class, ZOO_STORE_URL);
+                .target(ZooStoreRestExport.class, ZOO_STORE_URL);
     }
 }
