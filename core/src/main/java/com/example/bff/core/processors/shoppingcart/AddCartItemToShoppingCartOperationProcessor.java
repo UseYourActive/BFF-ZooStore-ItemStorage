@@ -7,9 +7,11 @@ import com.example.bff.core.exceptions.ItemNotFoundException;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.CartItemRepository;
 import com.example.bff.persistence.repositories.UserRepository;
+import com.example.storage.restexport.ItemStorageRestExport;
 import com.example.storage.restexport.StorageRestClient;
 import com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse;
 import com.example.zoostore.restexport.ZooStoreRestClient;
+import com.example.zoostore.restexport.ZooStoreRestExport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AddCartItemToShoppingCartOperationProcessor implements AddItemToCartOperation {
     private final CartItemRepository cartItemRepository;
-    private final ZooStoreRestClient zooStoreRestClient;
-    private final StorageRestClient storageRestClient;
+    private final ZooStoreRestExport zooStoreRestExport;
+    private final ItemStorageRestExport itemStorageRestExport;
     private final UserRepository userRepository;
 
     @Override
@@ -31,8 +33,8 @@ public class AddCartItemToShoppingCartOperationProcessor implements AddItemToCar
         User user = getAuthenticatedUser();
 
         try {
-            itemByIdZooStore = zooStoreRestClient.getItemById(String.valueOf(addItemToCartRequest.getItemId()));
-            itemByIdStorage = storageRestClient.findItemById(String.valueOf(addItemToCartRequest.getItemId()));
+            itemByIdZooStore = zooStoreRestExport.getItemById(String.valueOf(addItemToCartRequest.getItemId()));
+            itemByIdStorage = itemStorageRestExport.findItemById(String.valueOf(addItemToCartRequest.getItemId()));
         }catch (Exception e){
             throw new ItemNotFoundException();
         }
