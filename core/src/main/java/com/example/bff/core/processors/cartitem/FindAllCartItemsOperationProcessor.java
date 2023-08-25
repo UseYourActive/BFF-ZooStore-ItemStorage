@@ -21,10 +21,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.bff.core.config.CartItemLoggerMessages.*;
-import static com.example.bff.core.config.ShoppingCartLoggerMessages.FOUND_SHOPPING_CART_FOR_USER;
-import static com.example.bff.core.config.UserLoggerMessages.*;
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -34,24 +30,24 @@ public class FindAllCartItemsOperationProcessor implements FindAllCartItemsOpera
 
     @Override
     public FindAllCartItemsResponse process(final FindAllCartItemsRequest findAllCartItemsRequest) {
-        log.info(STARTING_FIND_ALL_CART_ITEMS_OPERATION);
+        log.info("Starting find all cart items operation");
 
         User user = getAuthenticatedUser();
-        log.info(AUTHENTICATED_USER, user.getEmail());
+        log.info("Authenticated user = {}", user.getEmail());
 
         ShoppingCart shoppingCart = this.shoppingCartRepository.findById(user.getId())
                 .orElseThrow(ShoppingCartNotFoundException::new);
-        log.info(FOUND_SHOPPING_CART_FOR_USER, user.getId());
+        log.info("Found shopping cart for user = {}", user.getId());
 
         List<FindAllCartItemsInRepo> cartItems = shoppingCart.getItems().stream()
                 .map(this::mapCartItem)
                 .collect(Collectors.toList());
-        log.info(MAPPED_CART_ITEMS_FOR_RESPONSE);
+        log.info("Mapped cart items for response");
 
         FindAllCartItemsResponse response = FindAllCartItemsResponse.builder()
                 .items(cartItems)
                 .build();
-        log.info(FIND_ALL_CART_ITEMS_OPERATION_COMPLETED);
+        log.info("Find all cart items operation completed");
 
         return response;
     }
@@ -71,11 +67,11 @@ public class FindAllCartItemsOperationProcessor implements FindAllCartItemsOpera
     private User getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        log.info(AUTHENTICATED_USER_WITH_EMAIL, email);
+        log.info("Authenticated user with email = {}", email);
 
         return userRepository.findUserByEmail(email)
                 .orElseThrow(() -> {
-                    log.error(USER_WITH_EMAIL_NOT_FOUND, email);
+                    log.error("User with email '{}' not found", email);
                     return new UsernameNotFoundException("The email you entered does not exist!");
                 });
     }

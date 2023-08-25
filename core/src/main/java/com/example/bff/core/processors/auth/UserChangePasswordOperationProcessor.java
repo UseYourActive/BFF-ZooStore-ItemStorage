@@ -16,8 +16,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import static com.example.bff.core.config.UserLoggerMessages.*;
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -29,18 +27,18 @@ public class UserChangePasswordOperationProcessor implements UserChangePasswordO
     @Override
     public UserChangePasswordResponse process(UserChangePasswordRequest input) {
         User user = getAuthenticatedUser();
-        log.info(USER_FOUND_IN_DATABASE_WITH_ID, user.getId());
+        log.info("User found in database with id = {}", user.getId());
 
         if (!this.passwordEncoder.matches(input.getOldPassword(), user.getPassword())) {
-            log.error(PASSWORD_DOES_NOT_MATCH);
+            log.error("Password does not match!");
             throw new CurrentPasswordInvalidException();
         }
 
         user.setPassword(this.passwordEncoder.encode(input.getPassword()));
-        log.info(SUCCESSFULLY_CHANGED_USER_PASSWORD_WITH_ID, user.getId());
+        log.info("Successfully changed user password with id = {}", user.getId());
 
         this.userRepository.save(user);
-        log.info(SUCCESSFULLY_SAVED_USER_IN_DATABASE_WITH_ID, user.getId());
+        log.info("Successfully saved user in database with id = {}", user.getId());
 
         this.invalidatedTokensRepository.save(
                 Token.builder()
@@ -57,12 +55,12 @@ public class UserChangePasswordOperationProcessor implements UserChangePasswordO
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
-        log.info(AUTHENTICATED_USER_WITH_EMAIL, email);
+        log.info("Authenticated user with email = {}", email);
 
         return userRepository.findUserByEmail(email)
                 .orElseThrow(() -> {
-                    log.error(USER_WITH_EMAIL_NOT_FOUND, email);
-                    return new UsernameNotFoundException(EMAIL_DOES_NOT_EXIST);
+                    log.error("User with email '{}' not found", email);
+                    return new UsernameNotFoundException("Email does not exist!");
                 });
     }
 }

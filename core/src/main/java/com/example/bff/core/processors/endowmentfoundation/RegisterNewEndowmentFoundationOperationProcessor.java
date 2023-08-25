@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-import static com.example.bff.core.config.EndowmentFoundationLoggerMessages.*;
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -21,7 +19,7 @@ public class RegisterNewEndowmentFoundationOperationProcessor implements Registe
 
     @Override
     public RegisterNewEndowmentFoundationResponse process(RegisterNewEndowmentFoundationRequest registerNewEndowmentFoundationRequest) {
-        log.info(STARTING_REGISTER_NEW_ENDOWMENT_FOUNDATION_OPERATION);
+        log.info("Starting register new endowment foundation operation");
 
         EndowmentFoundation endowmentFoundation = EndowmentFoundation.builder()
                 .totalAmountOfMoney(BigDecimal.ZERO)
@@ -29,10 +27,10 @@ public class RegisterNewEndowmentFoundationOperationProcessor implements Registe
                 .name(registerNewEndowmentFoundationRequest.getName())
                 .donationAccount(registerNewEndowmentFoundationRequest.getDonationAccount())
                 .build();
-        log.info(CREATING_NEW_ENDOWMENT_FOUNDATION_WITH_NAME, endowmentFoundation.getName());
+        log.info("Creating new endowment foundation with name = {}", endowmentFoundation.getName());
 
         EndowmentFoundation savedEndowmentFoundation = endowmentFoundationRepository.save(endowmentFoundation);
-        log.info(ENDOWMENT_FOUNDATION_REGISTERED_SUCCESSFULLY_WITH_ID, savedEndowmentFoundation.getId());
+        log.info("Endowment foundation registered successfully with id = {}", savedEndowmentFoundation.getId());
 
         RegisterNewEndowmentFoundationResponse response = RegisterNewEndowmentFoundationResponse.builder()
                 .id(savedEndowmentFoundation.getId())
@@ -41,7 +39,7 @@ public class RegisterNewEndowmentFoundationOperationProcessor implements Registe
                 .address(savedEndowmentFoundation.getAddress())
                 .donationAccount(savedEndowmentFoundation.getDonationAccount())
                 .build();
-        log.info(REGISTER_NEW_ENDOWMENT_FOUNDATION_OPERATION_COMPLETED);
+        log.info("Register new endowment foundation operation completed");
 
         return response;
     }

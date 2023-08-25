@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-import static com.example.bff.core.config.EndowmentFoundationLoggerMessages.*;
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -22,19 +20,19 @@ public class DonateToEndowmentFoundationOperationProcessor implements DonateToEn
 
     @Override
     public DonateToEndowmentFoundationResponse process(DonateToEndowmentFoundationRequest donateToEndowmentFoundationRequest) {
-        log.info(STARTING_DONATE_TO_ENDOWMENT_FOUNDATION_OPERATION);
+        log.info("Starting donate to endowment foundation operation");
 
         EndowmentFoundation endowmentFoundation = endowmentFoundationRepository.findById(donateToEndowmentFoundationRequest.getFoundationId())
                 .orElseThrow(EndowmentFoundationNotFoundException::new);
-        log.info(FOUND_ENDOWMENT_FOUNDATION_FOR_DONATION_WITH_ID, endowmentFoundation.getId());
+        log.info("Found endowment foundation for donation with id = {}", endowmentFoundation.getId());
 
         BigDecimal amountToDonate = donateToEndowmentFoundationRequest.getAmountToDonate();
 
         endowmentFoundation.setTotalAmountOfMoney(endowmentFoundation.getTotalAmountOfMoney().add(amountToDonate));
-        log.info(DONATING_AMOUNT_ADDED_TO_ENDOWMENT_FOUNDATION_NEW_TOTAL, endowmentFoundation.getTotalAmountOfMoney());
+        log.info("Donation amount added to endowment foundation new total = {}", endowmentFoundation.getTotalAmountOfMoney());
 
         EndowmentFoundation savedEndowmentFoundation = endowmentFoundationRepository.save(endowmentFoundation);
-        log.info(ENDOWMENT_FOUNDATION_UPDATED_WITH_ID, savedEndowmentFoundation.getId());
+        log.info("Endowment foundation updated with id = {}", savedEndowmentFoundation.getId());
 
         DonateToEndowmentFoundationResponse response = DonateToEndowmentFoundationResponse.builder()
                 .id(savedEndowmentFoundation.getId())
@@ -43,7 +41,7 @@ public class DonateToEndowmentFoundationOperationProcessor implements DonateToEn
                 .totalAmountOfMoney(savedEndowmentFoundation.getTotalAmountOfMoney())
                 .name(savedEndowmentFoundation.getName())
                 .build();
-        log.info(DONATE_TO_ENDOWMENT_FOUNDATION_OPERATION_COMPLETED);
+        log.info("Donate to endowment foundation operation completed");
 
         return response;
     }

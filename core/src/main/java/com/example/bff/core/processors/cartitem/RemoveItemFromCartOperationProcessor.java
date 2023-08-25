@@ -23,9 +23,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.bff.core.config.CartItemLoggerMessages.*;
-import static com.example.bff.core.config.UserLoggerMessages.*;
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -35,27 +32,27 @@ public class RemoveItemFromCartOperationProcessor implements RemoveItemFromCartO
 
     @Override
     public RemoveItemFromCartResponse process(final RemoveItemFromCartRequest removeItemFromCartRequest) {
-        log.info(STARTING_REMOVE_ITEM_FROM_CART_OPERATION);
+        log.info("Starting remove item from cart operation");
 
         User user = getAuthenticatedUser();
-        log.info(AUTHENTICATED_USER, user.getEmail());
+        log.info("Authenticated user = {}", user.getEmail());
 
         CartItem cartItem = cartItemRepository.findById(removeItemFromCartRequest.getTargetItemId())
                 .orElseThrow(ItemNotFoundException::new);
-        log.info(FOUND_CART_ITEM_TO_REMOVE_WITH_ID, cartItem.getId());
+        log.info("Found cart item to remove with id = {}", cartItem.getId());
 
         this.cartItemRepository.delete(cartItem);
-        log.info(CART_ITEM_REMOVED_SUCCESSFULLY);
+        log.info("Cart item removed successfully");
 
         List<RemoveItemFromCartRepo> updatedCartItems = user.getShoppingCart().getItems().stream()
                 .map(this::mapCartItem)
                 .collect(Collectors.toList());
-        log.info(MAPPED_REMAINING_CART_ITEMS_FOR_RESPONSE);
+        log.info("Mapped remaining cart items for response");
 
         RemoveItemFromCartResponse response = RemoveItemFromCartResponse.builder()
                 .itemFromCartRepo(updatedCartItems)
                 .build();
-        log.info(REMOVE_ITEM_FROM_CART_OPERATION_COMPLETED);
+        log.info("Remove item from cart operation completed");
 
         return response;
     }
@@ -75,11 +72,11 @@ public class RemoveItemFromCartOperationProcessor implements RemoveItemFromCartO
     private User getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-        log.info(AUTHENTICATED_USER_WITH_EMAIL, email);
+        log.info("Authenticated user with email = {}", email);
 
         return userRepository.findUserByEmail(email)
                 .orElseThrow(() -> {
-                    log.error(USER_WITH_EMAIL_NOT_FOUND, email);
+                    log.error("User with email '{}' not found", email);
                     return new UsernameNotFoundException("The email you entered does not exist!");
                 });
     }

@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import static com.example.bff.core.config.UserLoggerMessages.*;
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -21,7 +19,7 @@ public class UserRegisterOperationProcessor implements UserRegisterOperation {
 
     @Override
     public UserRegisterResponse process(UserRegisterRequest input) {
-        log.info(STARTING_USER_REGISTRATION_PROCESS_FOR_EMAIL, input.getEmail());
+        log.info("Starting user registration process for email = {}", input.getEmail());
 
         User user = User.builder()
                 .email(input.getEmail())
@@ -31,10 +29,10 @@ public class UserRegisterOperationProcessor implements UserRegisterOperation {
                 .phoneNumber(input.getPhoneNumber())
                 .build();
 
-        log.info(CREATING_USER_OBJECT_FOR_EMAIL, input.getEmail());
+        log.info("Creating user object for email = {}", input.getEmail());
 
         User persisted = this.userRepository.save(user);
-        log.info(USER_REGISTERED_SUCCESSFULLY_WITH_EMAIL, input.getEmail());
+        log.info("User registered successfully with email: {}", input.getEmail());
 
         UserRegisterResponse build = UserRegisterResponse.builder()
                 .id(persisted.getId())
@@ -44,7 +42,7 @@ public class UserRegisterOperationProcessor implements UserRegisterOperation {
                 .phoneNumber(persisted.getPhoneNumber())
                 .build();
 
-        log.info(USER_REGISTRATION_PROCESS_COMPLETED_FOR_EMAIL, input.getEmail());
+        log.info("User registration process completed for email = {}", input.getEmail());
 
         return build;
     }

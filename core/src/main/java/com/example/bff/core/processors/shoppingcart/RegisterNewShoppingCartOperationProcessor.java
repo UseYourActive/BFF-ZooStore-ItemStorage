@@ -16,9 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static com.example.bff.core.config.ShoppingCartLoggerMessages.*;
-import static com.example.bff.core.config.UserLoggerMessages.USER_FOUND_IN_DATABASE_WITH_ID;
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -28,20 +25,20 @@ public class RegisterNewShoppingCartOperationProcessor implements RegisterNewSho
 
     @Override
     public RegisterNewShoppingCartResponse process(RegisterNewShoppingCartRequest registerNewShoppingCartRequest) {
-        log.info(PROCESSING_NEW_SHOPPING_CART_REGISTRATION);
+        log.info("Processing new shopping cart registration");
 
         User user = userRepository.findById(registerNewShoppingCartRequest.getUserId())
                 .orElseThrow(UserNotFoundException::new);
-        log.info(USER_FOUND_IN_DATABASE_WITH_ID, user.getId());
+        log.info("User has successfully been found in the database with id = {}", user.getId());
 
         ShoppingCart shoppingCart = ShoppingCart.builder()
                 .items(new ArrayList<>())
                 .user(user)
                 .build();
-        log.info(CREATING_NEW_SHOPPING_CART_FOR_USER_WITH_ID, user.getId());
+        log.info("Creating new shopping cart for user = {}", user.getId());
 
         ShoppingCart savedShoppingCart = shoppingCartRepository.save(shoppingCart);
-        log.info(SHOPPING_CART_REGISTERED_SUCCESSFULLY_WITH_ID, savedShoppingCart.getId());
+        log.info("Shopping cart registered successfully with id = {}", savedShoppingCart.getId());
 
         RegisterNewShoppingCartResponse build = RegisterNewShoppingCartResponse.builder()
                 .cartId(savedShoppingCart.getId())
@@ -51,7 +48,7 @@ public class RegisterNewShoppingCartOperationProcessor implements RegisterNewSho
                         .collect(Collectors.toList()))
                 .quantity(savedShoppingCart.getItems().size())
                 .build();
-        log.info(NEW_SHOPPING_CART_REGISTRATION_PROCESS_COMPLETED);
+        log.info("New shopping cart registration process completed");
 
         return build;
     }

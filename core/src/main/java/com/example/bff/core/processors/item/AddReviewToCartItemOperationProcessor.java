@@ -15,10 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
-import static com.example.bff.core.config.CartItemLoggerMessages.CART_ITEM_FOUND_IN_DATABASE_WITH_ID;
-import static com.example.bff.core.config.CartItemLoggerMessages.STARTING_ADD_REVIEW_TO_CART_ITEM_OPERATION;
-import static com.example.bff.core.config.ItemReviewLoggerMessages.*;
-
 @RequiredArgsConstructor
 @Service
 @Slf4j
@@ -28,20 +24,20 @@ public class AddReviewToCartItemOperationProcessor implements AddReviewToCartIte
 
     @Override
     public AddReviewToCartItemResponse process(AddReviewToCartItemRequest addReviewToCartItemRequest) {
-        log.info(STARTING_ADD_REVIEW_TO_CART_ITEM_OPERATION);
+        log.info("Starting add review to cart item operation");
 
         CartItem cartItem = cartItemRepository.findById(addReviewToCartItemRequest.getProductId())
                 .orElseThrow(ProductNotFoundException::new);
-        log.info(CART_ITEM_FOUND_IN_DATABASE_WITH_ID, cartItem.getTargetItemId());
+        log.info("Cart Item has successfully been found in the database with id = {}", cartItem.getTargetItemId());
 
         ItemReview itemReview = itemReviewRepository.findById(addReviewToCartItemRequest.getCommentId())
                 .orElseThrow(ItemCommentNotFoundException::new);
-        log.info(ITEM_REVIEW_FOUND_IN_DATABASE_WITH_ID, itemReview.getId());
+        log.info("Item Review has successfully been found in the database with id = {}", itemReview.getId());
 
         cartItem.getReviews().add(itemReview);
 
         CartItem savedCartItem = cartItemRepository.save(cartItem);
-        log.info(REVIEW_ADDED_TO_CART_ITEM_WITH_ID, savedCartItem.getId());
+        log.info("Review added to cart item with id = {}", savedCartItem.getId());
 
         AddReviewToCartItemResponse response = AddReviewToCartItemResponse.builder()
                 .id(savedCartItem.getId())
@@ -52,7 +48,7 @@ public class AddReviewToCartItemOperationProcessor implements AddReviewToCartIte
                         .map(ItemReview::getId)
                         .collect(Collectors.toList()))
                 .build();
-        log.info(ADD_REVIEW_TO_CART_ITEM_OPERATION_COMPLETED);
+        log.info("Add review to cart item operation completed");
 
         return response;
     }

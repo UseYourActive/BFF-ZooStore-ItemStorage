@@ -15,10 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import static com.example.bff.core.config.ShoppingCartLoggerMessages.*;
-import static com.example.bff.core.config.UserLoggerMessages.AUTHENTICATED_USER;
-import static com.example.bff.core.config.UserLoggerMessages.USER_WITH_EMAIL_NOT_FOUND;
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
@@ -28,19 +24,19 @@ public class EmptyCartOperationProcessor implements EmptyCartOperation {
 
     @Override
     public EmptyCartResponse process(EmptyCartRequest emptyCartRequest) {
-        log.info(STARTING_EMPTY_CART_OPERATION);
+        log.info("Starting empty cart operation");
 
         User user = getAuthenticatedUser();
-        log.info(AUTHENTICATED_USER, user.getEmail());
+        log.info("Authenticated user = {}", user.getEmail());
 
         ShoppingCart shoppingCart = shoppingCartRepository.findById(user.getShoppingCart().getId())
                 .orElseThrow(ShoppingCartNotFoundException::new);
-        log.info(FOUND_SHOPPING_CART_FOR_USER, user.getId());
+        log.info("Found shopping cart for user = {}", user.getId());
 
         shoppingCart.getItems().clear();
         shoppingCartRepository.save(shoppingCart);
 
-        log.info(SHOPPING_CART_EMPTIED_SUCCESSFULLY);
+        log.info("Shopping cart emptied successfully");
 
         return new EmptyCartResponse();
     }
@@ -48,10 +44,11 @@ public class EmptyCartOperationProcessor implements EmptyCartOperation {
     private User getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
+        log.info("Authenticated user with email = {}", email);
 
         return userRepository.findUserByEmail(email)
                 .orElseThrow(() -> {
-                    log.error(USER_WITH_EMAIL_NOT_FOUND, email);
+                    log.error("User with email '{}' not found", email);
                     return new UsernameNotFoundException("The email you entered does not exist!");
                 });
     }
