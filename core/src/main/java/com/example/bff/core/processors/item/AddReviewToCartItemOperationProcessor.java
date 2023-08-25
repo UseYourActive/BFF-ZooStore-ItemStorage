@@ -3,7 +3,7 @@ package com.example.bff.core.processors.item;
 import com.example.bff.api.operations.item.addreview.AddReviewToCartItemOperation;
 import com.example.bff.api.operations.item.addreview.AddReviewToCartItemRequest;
 import com.example.bff.api.operations.item.addreview.AddReviewToCartItemResponse;
-import com.example.bff.core.exceptions.ItemCommentNotFoundException;
+import com.example.bff.core.exceptions.ItemReviewNotFoundException;
 import com.example.bff.core.exceptions.ProductNotFoundException;
 import com.example.bff.persistence.entities.CartItem;
 import com.example.bff.persistence.entities.ItemReview;
@@ -31,7 +31,7 @@ public class AddReviewToCartItemOperationProcessor implements AddReviewToCartIte
         log.info("Cart Item has successfully been found in the database with id = {}", cartItem.getTargetItemId());
 
         ItemReview itemReview = itemReviewRepository.findById(addReviewToCartItemRequest.getCommentId())
-                .orElseThrow(ItemCommentNotFoundException::new);
+                .orElseThrow(ItemReviewNotFoundException::new);
         log.info("Item Review has successfully been found in the database with id = {}", itemReview.getId());
 
         cartItem.getReviews().add(itemReview);
