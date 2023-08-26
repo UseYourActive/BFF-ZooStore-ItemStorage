@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeansConfiguration {
-    @Bean
-    Logger getLogger(){
-        return LoggerFactory.getLogger("logger");
-    }
+//    @Bean
+//    public Logger getLogger(){
+//        return LoggerFactory.getLogger("logger");
+//    }
 }

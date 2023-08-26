@@ -1,12 +1,9 @@
-package com.example.bff.core.processors.item;
+package com.example.bff.core.processors.cartitem;
 
 import com.example.bff.api.operations.item.find.byid.FindItemByIdOperation;
 import com.example.bff.api.operations.item.find.byid.FindItemByIdRequest;
 import com.example.bff.api.operations.item.find.byid.FindItemByIdResponse;
-import com.example.bff.core.exceptions.ItemNotFoundException;
 import com.example.storage.restexport.ItemStorageRestExport;
-import com.example.storage.restexport.StorageRestClient;
-import com.example.zoostore.restexport.ZooStoreRestClient;
 import com.example.zoostore.restexport.ZooStoreRestExport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,5 @@
 package com.example.bff.domain;
 
-import com.example.zoostore.restexport.ZooStoreRestClient;
 import com.example.zoostore.restexport.ZooStoreRestExport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;

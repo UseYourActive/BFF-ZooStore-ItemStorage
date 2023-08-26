@@ -8,7 +8,7 @@ import com.example.bff.api.operations.item.find.byid.FindItemByIdRequest;
 import com.example.bff.api.operations.item.find.byid.FindItemByIdResponse;
 import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagRequest;
 import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagResponse;
-import com.example.bff.core.processors.item.FindAllItemByTagOperationProcessor;
+import com.example.bff.core.processors.cartitem.FindAllItemByTagOperationProcessor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

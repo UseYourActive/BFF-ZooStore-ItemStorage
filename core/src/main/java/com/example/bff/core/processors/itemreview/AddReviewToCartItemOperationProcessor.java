@@ -1,4 +1,4 @@
-package com.example.bff.core.processors.item;
+package com.example.bff.core.processors.itemreview;
 
 import com.example.bff.api.operations.item.addreview.AddReviewToCartItemOperation;
 import com.example.bff.api.operations.item.addreview.AddReviewToCartItemRequest;
