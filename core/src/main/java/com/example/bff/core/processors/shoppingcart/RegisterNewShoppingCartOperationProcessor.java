@@ -24,7 +24,7 @@ public class RegisterNewShoppingCartOperationProcessor implements RegisterNewSho
     private final UserRepository userRepository;
 
     @Override
-    public RegisterNewShoppingCartResponse process(RegisterNewShoppingCartRequest registerNewShoppingCartRequest) {
+    public RegisterNewShoppingCartResponse process(final RegisterNewShoppingCartRequest registerNewShoppingCartRequest) {
         log.info("Processing new shopping cart registration");
 
         User user = userRepository.findById(registerNewShoppingCartRequest.getUserId())

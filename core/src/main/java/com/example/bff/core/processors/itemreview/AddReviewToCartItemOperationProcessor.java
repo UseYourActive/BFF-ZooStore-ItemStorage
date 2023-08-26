@@ -23,7 +23,7 @@ public class AddReviewToCartItemOperationProcessor implements AddReviewToCartIte
     private final ItemReviewRepository itemReviewRepository;
 
     @Override
-    public AddReviewToCartItemResponse process(AddReviewToCartItemRequest addReviewToCartItemRequest) {
+    public AddReviewToCartItemResponse process(final AddReviewToCartItemRequest addReviewToCartItemRequest) {
         log.info("Starting add review to cart item operation");
 
         CartItem cartItem = cartItemRepository.findById(addReviewToCartItemRequest.getProductId())

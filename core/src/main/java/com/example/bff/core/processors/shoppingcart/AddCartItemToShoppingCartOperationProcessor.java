@@ -4,11 +4,15 @@ import com.example.bff.api.operations.cartitem.additem.AddItemToCartOperation;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartRequest;
 import com.example.bff.api.operations.cartitem.additem.AddItemToCartResponse;
 import com.example.bff.core.exceptions.ItemNotFoundException;
+import com.example.bff.core.exceptions.ShoppingCartNotFoundException;
+import com.example.bff.persistence.entities.CartItem;
+import com.example.bff.persistence.entities.ShoppingCart;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.CartItemRepository;
+import com.example.bff.persistence.repositories.ShoppingCartRepository;
 import com.example.bff.persistence.repositories.UserRepository;
+import com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse;
 import com.example.storage.restexport.ItemStorageRestExport;
-import com.example.zoostore.api.operations.item.find.byid.FindItemByIdResponse;
 import com.example.zoostore.restexport.ZooStoreRestExport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -16,43 +20,37 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @RequiredArgsConstructor
 @Service
 public class AddCartItemToShoppingCartOperationProcessor implements AddItemToCartOperation {
     private final CartItemRepository cartItemRepository;
-    private final ZooStoreRestExport zooStoreRestExport;
-    private final ItemStorageRestExport itemStorageRestExport;
+    private final ShoppingCartRepository shoppingCartRepository;
     private final UserRepository userRepository;
 
     @Override
     public AddItemToCartResponse process(final AddItemToCartRequest addItemToCartRequest) {
-        FindItemByIdResponse itemByIdZooStore;
-        com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse itemByIdStorage;
         User user = getAuthenticatedUser();
 
-        try {
-            itemByIdZooStore = zooStoreRestExport.getItemById(String.valueOf(addItemToCartRequest.getItemId()));
-            itemByIdStorage = itemStorageRestExport.findItemById(String.valueOf(addItemToCartRequest.getItemId()));
-        }catch (Exception e){
-            throw new ItemNotFoundException();
-        }
+        ShoppingCart shoppingCart = shoppingCartRepository.findById(user.getShoppingCart().getId())
+                .orElseThrow(ShoppingCartNotFoundException::new);
 
-//        CartItem itemForCart = CartItem.builder()
-//                .targetItem(itemByIdStorage.getId())
-//                .price(itemByIdStorage.getPrice())
-//                .quantity(itemByIdStorage.getQuantity())
-//                .build();
-//
-////        cartItemRepository.save(itemForCart);
-////        user.getCartItems().add(itemForCart);
-////        userRepository.save(user);
-//
-//        return AddItemToCartResponse.builder()
-//                .price(itemForCart.getPrice())
-//                .quantity(itemForCart.getQuantity())
-//                .targetItemId(itemForCart.getTargetItem())
-//                .build();
-        return null;
+        CartItem cartItem = cartItemRepository.findById(addItemToCartRequest.getItemId())
+                .orElseThrow(ItemNotFoundException::new);
+
+        shoppingCart.getItems().add(cartItem);
+        shoppingCartRepository.save(shoppingCart);
+
+        BigDecimal totalPriceOfCart = shoppingCart.getItems().stream()
+                .map(CartItem::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return AddItemToCartResponse.builder()
+                .price(totalPriceOfCart)
+                .quantity(shoppingCart.getItems().size())
+                .targetItemId(cartItem.getTargetItemId())
+                .build();
     }
 
     private User getAuthenticatedUser() {

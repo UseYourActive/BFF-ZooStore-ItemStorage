@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentOperationProcessor implements PaymentOperation {
     @Override
-    public PaymentResponse process(PaymentRequest paymentRequest) {
+    public PaymentResponse process(final PaymentRequest paymentRequest) {
         log.info("Processing payment request");
 
         log.info("Payment request processed successfully");

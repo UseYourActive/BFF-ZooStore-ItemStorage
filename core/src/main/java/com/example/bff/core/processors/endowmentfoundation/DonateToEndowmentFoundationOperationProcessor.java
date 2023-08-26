@@ -19,7 +19,7 @@ public class DonateToEndowmentFoundationOperationProcessor implements DonateToEn
     private final EndowmentFoundationRepository endowmentFoundationRepository;
 
     @Override
-    public DonateToEndowmentFoundationResponse process(DonateToEndowmentFoundationRequest donateToEndowmentFoundationRequest) {
+    public DonateToEndowmentFoundationResponse process(final DonateToEndowmentFoundationRequest donateToEndowmentFoundationRequest) {
         log.info("Starting donate to endowment foundation operation");
 
         EndowmentFoundation endowmentFoundation = endowmentFoundationRepository.findById(donateToEndowmentFoundationRequest.getFoundationId())

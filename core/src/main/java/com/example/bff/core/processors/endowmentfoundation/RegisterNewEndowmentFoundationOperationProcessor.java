@@ -18,7 +18,7 @@ public class RegisterNewEndowmentFoundationOperationProcessor implements Registe
     private final EndowmentFoundationRepository endowmentFoundationRepository;
 
     @Override
-    public RegisterNewEndowmentFoundationResponse process(RegisterNewEndowmentFoundationRequest registerNewEndowmentFoundationRequest) {
+    public RegisterNewEndowmentFoundationResponse process(final RegisterNewEndowmentFoundationRequest registerNewEndowmentFoundationRequest) {
         log.info("Starting register new endowment foundation operation");
 
         EndowmentFoundation endowmentFoundation = EndowmentFoundation.builder()

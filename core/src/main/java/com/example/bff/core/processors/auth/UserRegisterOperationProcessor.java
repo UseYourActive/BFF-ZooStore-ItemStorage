@@ -18,7 +18,7 @@ public class UserRegisterOperationProcessor implements UserRegisterOperation {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserRegisterResponse process(UserRegisterRequest input) {
+    public UserRegisterResponse process(final UserRegisterRequest input) {
         log.info("Starting user registration process for email = {}", input.getEmail());
 
         User user = User.builder()

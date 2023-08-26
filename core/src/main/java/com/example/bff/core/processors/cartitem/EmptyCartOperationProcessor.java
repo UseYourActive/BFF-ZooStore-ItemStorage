@@ -23,7 +23,7 @@ public class EmptyCartOperationProcessor implements EmptyCartOperation {
     private final ShoppingCartRepository shoppingCartRepository;
 
     @Override
-    public EmptyCartResponse process(EmptyCartRequest emptyCartRequest) {
+    public EmptyCartResponse process(final EmptyCartRequest emptyCartRequest) {
         log.info("Starting empty cart operation");
 
         User user = getAuthenticatedUser();

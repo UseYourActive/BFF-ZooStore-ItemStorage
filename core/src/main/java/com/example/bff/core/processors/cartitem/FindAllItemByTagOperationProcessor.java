@@ -22,7 +22,7 @@ public class FindAllItemByTagOperationProcessor implements FindItemByTagOperatio
     private final ItemStorageRestExport storageRestExport;
 
     @Override
-    public FindAllItemsByTagResponse process(FindAllItemsByTagRequest findItemByTagRequest) {
+    public FindAllItemsByTagResponse process(final FindAllItemsByTagRequest findItemByTagRequest) {
         FindItemsByTagResponse zooStoreItemsByTagId;
 
         zooStoreItemsByTagId = zooStoreRestExport.getItemByTagId(

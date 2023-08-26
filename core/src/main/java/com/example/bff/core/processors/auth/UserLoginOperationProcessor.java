@@ -15,7 +15,7 @@ public class UserLoginOperationProcessor implements UserLoginOperation {
     private final JwtManager jwtManager;
 
     @Override
-    public UserLoginResponse process(UserLoginRequest input) {
+    public UserLoginResponse process(final UserLoginRequest input) {
         log.info("Processing user login request");
 
         String jwtToken = this.jwtManager.generateJwt(input);

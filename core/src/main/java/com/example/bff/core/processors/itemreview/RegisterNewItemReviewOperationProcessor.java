@@ -14,7 +14,7 @@ public class RegisterNewItemReviewOperationProcessor implements RegisterNewItemR
     private final ItemReviewRepository itemReviewRepository;
 
     @Override
-    public RegisterNewItemReviewResponse process(RegisterNewItemReviewRequest registerNewItemReviewRequest) {
+    public RegisterNewItemReviewResponse process(final RegisterNewItemReviewRequest registerNewItemReviewRequest) {
         ItemReview itemReview = ItemReview.builder()
                 .itemId(registerNewItemReviewRequest.getItemId())
                 .comment(registerNewItemReviewRequest.getComment())

@@ -25,7 +25,7 @@ public class UserChangePasswordOperationProcessor implements UserChangePasswordO
     private final InvalidatedTokensRepository invalidatedTokensRepository;
 
     @Override
-    public UserChangePasswordResponse process(UserChangePasswordRequest input) {
+    public UserChangePasswordResponse process(final UserChangePasswordRequest input) {
         User user = getAuthenticatedUser();
         log.info("User found in database with id = {}", user.getId());
 
