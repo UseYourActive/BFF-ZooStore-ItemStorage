@@ -27,11 +27,16 @@ public class SecurityConfiguration {
                     .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests(c -> c
                             .requestMatchers(HttpMethod.POST, TokenWhitelist.POST.values).permitAll()
-                            .requestMatchers(HttpMethod.GET, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
-                            .requestMatchers(HttpMethod.PATCH, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
-                            .requestMatchers("/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
-                            .requestMatchers(HttpMethod.POST, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
-                            .requestMatchers(HttpMethod.GET, TokenWhitelist.GET.values).permitAll()
+                            .requestMatchers(HttpMethod.GET, TokenWhitelist.POST.values).permitAll()
+                            .requestMatchers(HttpMethod.PATCH, TokenWhitelist.POST.values).permitAll()
+                            .requestMatchers(HttpMethod.DELETE, TokenWhitelist.POST.values).permitAll()
+                            .requestMatchers(HttpMethod.PUT, TokenWhitelist.POST.values).permitAll()
+
+
+//                            .requestMatchers(HttpMethod.GET, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
+//                            .requestMatchers(HttpMethod.PATCH, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
+//                            .requestMatchers("/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
+//                            .requestMatchers(HttpMethod.POST, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
                     )
                     .cors(c -> c.disable())
                     .csrf(c -> c.disable())
