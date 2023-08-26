@@ -26,11 +26,11 @@ public class SecurityConfiguration {
             return http
                     .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                     .authorizeHttpRequests(c -> c
-                            .requestMatchers(HttpMethod.POST, TokenWhitelist.POST.values).permitAll()
-                            .requestMatchers(HttpMethod.GET, TokenWhitelist.POST.values).permitAll()
-                            .requestMatchers(HttpMethod.PATCH, TokenWhitelist.POST.values).permitAll()
-                            .requestMatchers(HttpMethod.DELETE, TokenWhitelist.POST.values).permitAll()
-                            .requestMatchers(HttpMethod.PUT, TokenWhitelist.POST.values).permitAll()
+                                    .requestMatchers(HttpMethod.GET, TokenWhitelist.GET.values).permitAll()
+                                    .requestMatchers(HttpMethod.POST, TokenWhitelist.POST.values).permitAll()
+                                    .requestMatchers(HttpMethod.PATCH, TokenWhitelist.PATCH.values).permitAll()
+                                    .requestMatchers(HttpMethod.PUT, TokenWhitelist.PUT.values).permitAll()
+                                    .requestMatchers(HttpMethod.DELETE, TokenWhitelist.DELETE.values).permitAll()
 
 
 //                            .requestMatchers(HttpMethod.GET, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
@@ -54,25 +54,3 @@ public class SecurityConfiguration {
             return new BCryptPasswordEncoder();
         }
 }
-
-//"/auth/register",
-//        "/auth/login",
-//        "/v2/api-docs",
-//        "/v3/api-docs",
-//        "/v3/api-docs/**",
-//        "/swagger-resources",
-//        "/swagger-resources/**",
-//        "/configuration/ui",
-//        "/configuration/security",
-//        "/swagger-ui/**",
-//        "/webjars/**",
-//        "/swagger-ui.html"
-//        )
-//        .permitAll()
-////                                .anyRequest()
-////                                .authenticated()
-//        .requestMatchers(
-//        "/item/**",
-//        "/cart-item/**"
-//        )
-//        .permitAll()
