@@ -1,8 +1,8 @@
 package com.example.bff.rest.controllers;
 
-import com.example.bff.api.operations.item.addreview.AddReviewToCartItemOperation;
-import com.example.bff.api.operations.item.addreview.AddReviewToCartItemRequest;
-import com.example.bff.api.operations.item.addreview.AddReviewToCartItemResponse;
+import com.example.bff.api.operations.cartitem.addreview.AddReviewToCartItemOperation;
+import com.example.bff.api.operations.cartitem.addreview.AddReviewToCartItemRequest;
+import com.example.bff.api.operations.cartitem.addreview.AddReviewToCartItemResponse;
 import com.example.bff.api.operations.itemreview.RegisterNewItemReviewOperation;
 import com.example.bff.api.operations.itemreview.RegisterNewItemReviewRequest;
 import com.example.bff.api.operations.itemreview.RegisterNewItemReviewResponse;
@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

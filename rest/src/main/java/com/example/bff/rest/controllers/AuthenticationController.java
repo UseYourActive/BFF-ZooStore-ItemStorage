@@ -28,8 +28,7 @@ public class AuthenticationController {
 
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Successfully registered user."),
-            @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content(mediaType = "text/html"))
+            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "text/html"))
     })
     @Operation(description = "Registers a new user with first name, last name, email, password, phone number",
             summary = "Registers a new user.")
@@ -60,7 +59,7 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "400", description = "Password must not be blank.", content = @Content(mediaType = "text/html")),
             @ApiResponse(responseCode = "403", description = "Invalid JWT.", content = @Content(mediaType = "text/html"))
     })
-    @Operation(description = "Changes the password of the current logged in user.",
+    @Operation(description = "Changes the password of the currently logged in user.",
             summary = "Change password.")
     @PutMapping("/changePassword")
     public ResponseEntity<UserChangePasswordResponse> changePassword(@RequestBody @Valid UserChangePasswordRequest userChangePasswordRequest) {

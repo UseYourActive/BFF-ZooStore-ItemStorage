@@ -1,9 +1,9 @@
 package com.example.bff.core.processors.cartitem;
 
-import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsInRepo;
-import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsOperation;
-import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsRequest;
-import com.example.bff.api.operations.cartitem.findall.FindAllCartItemsResponse;
+import com.example.bff.api.operations.cartitem.find.findall.FindAllCartItemsInRepo;
+import com.example.bff.api.operations.cartitem.find.findall.FindAllCartItemsOperation;
+import com.example.bff.api.operations.cartitem.find.findall.FindAllCartItemsRequest;
+import com.example.bff.api.operations.cartitem.find.findall.FindAllCartItemsResponse;
 import com.example.bff.core.exceptions.ShoppingCartNotFoundException;
 import com.example.bff.persistence.entities.CartItem;
 import com.example.bff.persistence.entities.ItemReview;
@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -53,14 +54,18 @@ public class FindAllCartItemsOperationProcessor implements FindAllCartItemsOpera
     }
 
     private FindAllCartItemsInRepo mapCartItem(CartItem cartItem){
+        List<UUID> collect = cartItem.getReviews().stream()
+                .map(ItemReview::getId)
+                .toList();
+
         return FindAllCartItemsInRepo.builder()
-                .id(cartItem.getId())
-                .targetItemId(cartItem.getTargetItemId())
+                .id(String.valueOf(cartItem.getId()))
+                .targetItemId(String.valueOf(cartItem.getTargetItemId()))
                 .price(cartItem.getPrice())
                 .quantity(cartItem.getQuantity())
-                .reviews(cartItem.getReviews().stream()
-                        .map(ItemReview::getId)
-                        .collect(Collectors.toList()))
+                .reviews(collect.stream()
+                        .map(UUID::toString)
+                        .toList())
                 .build();
     }
 

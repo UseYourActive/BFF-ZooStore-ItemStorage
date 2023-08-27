@@ -12,8 +12,8 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class RegisterNewShoppingCartResponse implements OperationResult {
-    private UUID cartId;
-    private UUID userId;
-    private List<UUID> items;
+    private String cartId;
+    private String userId;
+    private List<String> items;
     private Integer quantity;
 }

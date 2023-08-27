@@ -27,13 +27,16 @@ public enum TokenWhitelist {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
 
+
+            "/shopping-cart/register"
     }),
 
     POST(new String[]{
             "/auth/login",
-            "/auth/register"
+            "/auth/register",
+            "/shopping-cart/register"
     }),
 
     PUT(new String[]{

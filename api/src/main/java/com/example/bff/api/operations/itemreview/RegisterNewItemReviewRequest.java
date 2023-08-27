@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class RegisterNewItemReviewRequest implements OperationInput {
     private String comment;
-    private UUID commentingUserId;
-    private UUID itemId;
+    private String commentingUserId;
+    private String itemId;
     private Integer rating;
 }

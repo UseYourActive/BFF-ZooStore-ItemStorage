@@ -33,7 +33,7 @@ public class RegisterNewEndowmentFoundationOperationProcessor implements Registe
         log.info("Endowment foundation registered successfully with id = {}", savedEndowmentFoundation.getId());
 
         RegisterNewEndowmentFoundationResponse response = RegisterNewEndowmentFoundationResponse.builder()
-                .id(savedEndowmentFoundation.getId())
+                .id(String.valueOf(savedEndowmentFoundation.getId()))
                 .totalAmountOfMoney(savedEndowmentFoundation.getTotalAmountOfMoney())
                 .name(savedEndowmentFoundation.getName())
                 .address(savedEndowmentFoundation.getAddress())

@@ -11,9 +11,9 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class RegisterNewItemReviewResponse implements OperationResult {
-    private UUID id;
+    private String id;
     private String comment;
-    private UUID commentingUserId;
-    private UUID itemId;
+    private String commentingUserId;
+    private String itemId;
     private Integer rating;
 }

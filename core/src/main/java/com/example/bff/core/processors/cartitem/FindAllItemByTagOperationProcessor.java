@@ -1,9 +1,9 @@
 package com.example.bff.core.processors.cartitem;
 
-import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagInRepo;
-import com.example.bff.api.operations.item.find.bytag.FindItemByTagOperation;
-import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagRequest;
-import com.example.bff.api.operations.item.find.bytag.FindAllItemsByTagResponse;
+import com.example.bff.api.operations.cartitem.find.bytag.FindAllItemsByTagInRepo;
+import com.example.bff.api.operations.cartitem.find.bytag.FindItemByTagOperation;
+import com.example.bff.api.operations.cartitem.find.bytag.FindAllItemsByTagRequest;
+import com.example.bff.api.operations.cartitem.find.bytag.FindAllItemsByTagResponse;
 import com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse;
 import com.example.storage.restexport.ItemStorageRestExport;
 import com.example.zoostore.api.operations.item.find.bytag.FindItemsByTagInRepo;
@@ -45,7 +45,7 @@ public class FindAllItemByTagOperationProcessor implements FindItemByTagOperatio
 
         return FindAllItemsByTagInRepo.builder()
                 .itemId(zooStoreItem.getItemId())
-                .storageItemId(storageItem.getId())
+                .storageItemId(String.valueOf(storageItem.getId()))
                 .productName(zooStoreItem.getProductName())
                 .description(zooStoreItem.getDescription())
                 .vendorId(zooStoreItem.getVendorId())

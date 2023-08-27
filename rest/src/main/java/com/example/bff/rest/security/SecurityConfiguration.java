@@ -31,12 +31,10 @@ public class SecurityConfiguration {
                                     .requestMatchers(HttpMethod.PATCH, TokenWhitelist.PATCH.values).permitAll()
                                     .requestMatchers(HttpMethod.PUT, TokenWhitelist.PUT.values).permitAll()
                                     .requestMatchers(HttpMethod.DELETE, TokenWhitelist.DELETE.values).permitAll()
-
-
-//                            .requestMatchers(HttpMethod.GET, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
-//                            .requestMatchers(HttpMethod.PATCH, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
-//                            .requestMatchers("/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
-//                            .requestMatchers(HttpMethod.POST, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
+                                    .requestMatchers(HttpMethod.GET, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
+                                    .requestMatchers(HttpMethod.PATCH, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
+                                    .requestMatchers("/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
+                                    .requestMatchers(HttpMethod.POST, "/items", "/auth", "/cart-item","/review","/shopping-cart").authenticated()
                     )
                     .cors(c -> c.disable())
                     .csrf(c -> c.disable())

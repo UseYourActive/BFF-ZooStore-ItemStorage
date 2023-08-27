@@ -1,8 +1,8 @@
 package com.example.bff.core.processors.cartitem;
 
-import com.example.bff.api.operations.item.find.all.FindAllItemsOperation;
-import com.example.bff.api.operations.item.find.all.FindAllItemsRequest;
-import com.example.bff.api.operations.item.find.all.FindAllItemsResponse;
+import com.example.bff.api.operations.cartitem.find.all.FindAllItemsOperation;
+import com.example.bff.api.operations.cartitem.find.all.FindAllItemsRequest;
+import com.example.bff.api.operations.cartitem.find.all.FindAllItemsResponse;
 import com.example.storage.api.operations.storageitem.find.all.FindAllStorageItemResponse;
 import com.example.storage.restexport.ItemStorageRestExport;
 import com.example.zoostore.restexport.ZooStoreRestExport;

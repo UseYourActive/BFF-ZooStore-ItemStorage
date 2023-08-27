@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class DonateToEndowmentFoundationResponse implements OperationResult {
-    private UUID id;
+    private String id;
     private BigDecimal totalAmountOfMoney;
     private String name;
     private String donationAccount;

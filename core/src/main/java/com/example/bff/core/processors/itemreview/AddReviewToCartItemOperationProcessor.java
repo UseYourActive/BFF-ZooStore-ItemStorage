@@ -1,8 +1,8 @@
 package com.example.bff.core.processors.itemreview;
 
-import com.example.bff.api.operations.item.addreview.AddReviewToCartItemOperation;
-import com.example.bff.api.operations.item.addreview.AddReviewToCartItemRequest;
-import com.example.bff.api.operations.item.addreview.AddReviewToCartItemResponse;
+import com.example.bff.api.operations.cartitem.addreview.AddReviewToCartItemOperation;
+import com.example.bff.api.operations.cartitem.addreview.AddReviewToCartItemRequest;
+import com.example.bff.api.operations.cartitem.addreview.AddReviewToCartItemResponse;
 import com.example.bff.core.exceptions.ItemReviewNotFoundException;
 import com.example.bff.core.exceptions.ProductNotFoundException;
 import com.example.bff.persistence.entities.CartItem;
@@ -13,7 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -26,11 +27,11 @@ public class AddReviewToCartItemOperationProcessor implements AddReviewToCartIte
     public AddReviewToCartItemResponse process(final AddReviewToCartItemRequest addReviewToCartItemRequest) {
         log.info("Starting add review to cart item operation");
 
-        CartItem cartItem = cartItemRepository.findById(addReviewToCartItemRequest.getProductId())
+        CartItem cartItem = cartItemRepository.findById(UUID.fromString(addReviewToCartItemRequest.getProductId()))
                 .orElseThrow(ProductNotFoundException::new);
         log.info("Cart Item has successfully been found in the database with id = {}", cartItem.getTargetItemId());
 
-        ItemReview itemReview = itemReviewRepository.findById(addReviewToCartItemRequest.getCommentId())
+        ItemReview itemReview = itemReviewRepository.findById(UUID.fromString(addReviewToCartItemRequest.getCommentId()))
                 .orElseThrow(ItemReviewNotFoundException::new);
         log.info("Item Review has successfully been found in the database with id = {}", itemReview.getId());
 
@@ -39,14 +40,18 @@ public class AddReviewToCartItemOperationProcessor implements AddReviewToCartIte
         CartItem savedCartItem = cartItemRepository.save(cartItem);
         log.info("Review added to cart item with id = {}", savedCartItem.getId());
 
+        List<UUID> collect = savedCartItem.getReviews().stream()
+                .map(ItemReview::getId)
+                .toList();
+
         AddReviewToCartItemResponse response = AddReviewToCartItemResponse.builder()
-                .id(savedCartItem.getId())
+                .id(String.valueOf(savedCartItem.getId()))
                 .price(savedCartItem.getPrice())
                 .quantity(savedCartItem.getQuantity())
-                .targetItem(savedCartItem.getTargetItemId())
-                .reviews(savedCartItem.getReviews().stream()
-                        .map(ItemReview::getId)
-                        .collect(Collectors.toList()))
+                .targetItem(String.valueOf(savedCartItem.getTargetItemId()))
+                .reviews(collect.stream()
+                        .map(UUID::toString)
+                        .toList())
                 .build();
         log.info("Add review to cart item operation completed");
 

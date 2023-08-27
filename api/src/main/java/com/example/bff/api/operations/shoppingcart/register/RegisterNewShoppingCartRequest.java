@@ -9,7 +9,6 @@ import java.util.UUID;
 @Setter(AccessLevel.PRIVATE)
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+//@AllArgsConstructor
 public class RegisterNewShoppingCartRequest implements OperationInput {
-    private UUID userId;
 }

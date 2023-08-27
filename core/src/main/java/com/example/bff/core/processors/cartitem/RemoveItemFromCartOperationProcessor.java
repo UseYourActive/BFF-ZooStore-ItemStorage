@@ -1,17 +1,14 @@
 package com.example.bff.core.processors.cartitem;
 
-import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartOperation;
-import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartRepo;
-import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartRequest;
-import com.example.bff.api.operations.cartitem.removeitem.RemoveItemFromCartResponse;
+import com.example.bff.api.operations.cartitem.remove.RemoveItemFromCartOperation;
+import com.example.bff.api.operations.cartitem.remove.RemoveItemFromCartRepo;
+import com.example.bff.api.operations.cartitem.remove.RemoveItemFromCartRequest;
+import com.example.bff.api.operations.cartitem.remove.RemoveItemFromCartResponse;
 import com.example.bff.core.exceptions.ItemNotFoundException;
-import com.example.bff.core.exceptions.ShoppingCartNotFoundException;
 import com.example.bff.persistence.entities.CartItem;
 import com.example.bff.persistence.entities.ItemReview;
-import com.example.bff.persistence.entities.ShoppingCart;
 import com.example.bff.persistence.entities.User;
 import com.example.bff.persistence.repositories.CartItemRepository;
-import com.example.bff.persistence.repositories.ShoppingCartRepository;
 import com.example.bff.persistence.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -37,7 +35,7 @@ public class RemoveItemFromCartOperationProcessor implements RemoveItemFromCartO
         User user = getAuthenticatedUser();
         log.info("Authenticated user = {}", user.getEmail());
 
-        CartItem cartItem = cartItemRepository.findById(removeItemFromCartRequest.getTargetItemId())
+        CartItem cartItem = cartItemRepository.findById(UUID.fromString(removeItemFromCartRequest.getTargetItemId()))
                 .orElseThrow(ItemNotFoundException::new);
         log.info("Found cart item to remove with id = {}", cartItem.getId());
 
@@ -58,14 +56,18 @@ public class RemoveItemFromCartOperationProcessor implements RemoveItemFromCartO
     }
 
     private RemoveItemFromCartRepo mapCartItem(CartItem cartItem){
+        List<UUID> collect = cartItem.getReviews().stream()
+                .map(ItemReview::getId)
+                .toList();
+
         return RemoveItemFromCartRepo.builder()
-                .id(cartItem.getId())
-                .targetItemId(cartItem.getTargetItemId())
+                .id(String.valueOf(cartItem.getId()))
+                .targetItemId(String.valueOf(cartItem.getTargetItemId()))
                 .price(cartItem.getPrice())
                 .quantity(cartItem.getQuantity())
-                .reviews(cartItem.getReviews().stream()
-                        .map(ItemReview::getId)
-                        .collect(Collectors.toList()))
+                .reviews(collect.stream()
+                        .map(UUID::toString)
+                        .toList())
                 .build();
     }
 

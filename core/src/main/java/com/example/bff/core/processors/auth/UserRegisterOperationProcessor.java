@@ -28,20 +28,18 @@ public class UserRegisterOperationProcessor implements UserRegisterOperation {
                 .lastName(input.getLastName())
                 .phoneNumber(input.getPhoneNumber())
                 .build();
-
         log.info("Creating user object for email = {}", input.getEmail());
 
         User persisted = this.userRepository.save(user);
         log.info("User registered successfully with email: {}", input.getEmail());
 
         UserRegisterResponse build = UserRegisterResponse.builder()
-                .id(persisted.getId())
+                .id(String.valueOf(persisted.getId()))
                 .email(persisted.getEmail())
                 .firstName(persisted.getFirstName())
                 .lastName(persisted.getLastName())
                 .phoneNumber(persisted.getPhoneNumber())
                 .build();
-
         log.info("User registration process completed for email = {}", input.getEmail());
 
         return build;

@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -22,7 +23,7 @@ public class DonateToEndowmentFoundationOperationProcessor implements DonateToEn
     public DonateToEndowmentFoundationResponse process(final DonateToEndowmentFoundationRequest donateToEndowmentFoundationRequest) {
         log.info("Starting donate to endowment foundation operation");
 
-        EndowmentFoundation endowmentFoundation = endowmentFoundationRepository.findById(donateToEndowmentFoundationRequest.getFoundationId())
+        EndowmentFoundation endowmentFoundation = endowmentFoundationRepository.findById(UUID.fromString(donateToEndowmentFoundationRequest.getFoundationId()))
                 .orElseThrow(EndowmentFoundationNotFoundException::new);
         log.info("Found endowment foundation for donation with id = {}", endowmentFoundation.getId());
 
@@ -35,7 +36,7 @@ public class DonateToEndowmentFoundationOperationProcessor implements DonateToEn
         log.info("Endowment foundation updated with id = {}", savedEndowmentFoundation.getId());
 
         DonateToEndowmentFoundationResponse response = DonateToEndowmentFoundationResponse.builder()
-                .id(savedEndowmentFoundation.getId())
+                .id(String.valueOf(savedEndowmentFoundation.getId()))
                 .address(savedEndowmentFoundation.getAddress())
                 .donationAccount(savedEndowmentFoundation.getDonationAccount())
                 .totalAmountOfMoney(savedEndowmentFoundation.getTotalAmountOfMoney())

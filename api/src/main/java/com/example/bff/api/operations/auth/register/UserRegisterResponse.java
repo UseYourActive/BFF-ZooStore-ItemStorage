@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class UserRegisterResponse implements OperationResult {
-    private UUID id;
+    private String id;
     private String firstName;
     private String lastName;
     private String email;

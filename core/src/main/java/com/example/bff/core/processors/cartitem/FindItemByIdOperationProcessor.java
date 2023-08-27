@@ -1,8 +1,8 @@
 package com.example.bff.core.processors.cartitem;
 
-import com.example.bff.api.operations.item.find.byid.FindItemByIdOperation;
-import com.example.bff.api.operations.item.find.byid.FindItemByIdRequest;
-import com.example.bff.api.operations.item.find.byid.FindItemByIdResponse;
+import com.example.bff.api.operations.cartitem.find.byid.FindItemByIdOperation;
+import com.example.bff.api.operations.cartitem.find.byid.FindItemByIdRequest;
+import com.example.bff.api.operations.cartitem.find.byid.FindItemByIdResponse;
 import com.example.storage.restexport.ItemStorageRestExport;
 import com.example.zoostore.restexport.ZooStoreRestExport;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,6 @@ public class FindItemByIdOperationProcessor implements FindItemByIdOperation{
         com.example.storage.api.operations.storageitem.find.byid.FindItemByIdResponse itemFoundByIdInStorage;
 
         itemFoundByIdInZooStore = zooStoreRestExport.getItemById(String.valueOf(findItemByIdRequest.getItemId()));
-
         itemFoundByIdInStorage = storageRestExport.findItemById(String.valueOf(findItemByIdRequest.getItemId()));
 
         return FindItemByIdResponse.builder()
