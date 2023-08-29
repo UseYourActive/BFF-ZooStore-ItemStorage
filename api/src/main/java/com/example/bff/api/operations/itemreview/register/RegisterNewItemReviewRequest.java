@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.itemreview;
+package com.example.bff.api.operations.itemreview.register;
 
 import com.example.bff.api.base.OperationInput;
 import lombok.*;
@@ -8,11 +8,10 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class RegisterNewItemReviewRequest implements OperationInput {
-    private String comment;
-    private String commentingUserId;
-    private String itemId;
-    private Integer rating;
+    private final String comment;
+    private final String commentingUserId;
+    private final String itemId;
+    private final Integer rating;
 }

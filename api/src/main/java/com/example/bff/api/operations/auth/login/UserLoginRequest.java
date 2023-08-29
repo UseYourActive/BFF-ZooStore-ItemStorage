@@ -7,12 +7,11 @@ import lombok.*;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class UserLoginRequest implements OperationInput{
     //@Email
-    private String email;
+    private final String email;
 
     @NotEmpty
-    private String password;
+    private final String password;
 }

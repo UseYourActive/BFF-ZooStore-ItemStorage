@@ -9,9 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class DonateToEndowmentFoundationRequest implements OperationInput {
-    private String foundationId;
-    protected BigDecimal amountToDonate;
+    private final String foundationId;
+    private final BigDecimal amountToDonate;
 }

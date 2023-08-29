@@ -8,10 +8,9 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class AddReviewToCartItemRequest implements OperationInput {
-    private String userId;
-    private String productId;
-    private String commentId;
+    private final String userId;
+    private final String productId;
+    private final String commentId;
 }

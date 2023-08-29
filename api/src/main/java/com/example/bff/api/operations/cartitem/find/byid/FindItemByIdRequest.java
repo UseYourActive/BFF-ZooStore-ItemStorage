@@ -9,8 +9,7 @@ import java.util.UUID;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindItemByIdRequest implements OperationInput {
-    private String itemId;
+    private final String itemId;
 }

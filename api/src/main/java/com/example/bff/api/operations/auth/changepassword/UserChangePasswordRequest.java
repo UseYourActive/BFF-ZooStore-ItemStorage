@@ -7,12 +7,11 @@ import lombok.*;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class UserChangePasswordRequest implements OperationInput {
 
     @NotEmpty(message = "New password is required!")
-    private String oldPassword;
+    private final String oldPassword;
 
-    private String password;
+    private final String password;
 }

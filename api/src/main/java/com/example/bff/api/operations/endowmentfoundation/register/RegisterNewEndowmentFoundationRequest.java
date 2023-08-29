@@ -6,10 +6,9 @@ import lombok.*;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class RegisterNewEndowmentFoundationRequest implements OperationInput {
-    private String name;
-    private String donationAccount;
-    private String address;
+    private final String name;
+    private final String donationAccount;
+    private final String address;
 }

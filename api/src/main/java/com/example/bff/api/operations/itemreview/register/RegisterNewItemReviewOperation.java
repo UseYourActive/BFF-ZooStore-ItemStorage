@@ -1,4 +1,4 @@
-package com.example.bff.api.operations.itemreview;
+package com.example.bff.api.operations.itemreview.register;
 
 import com.example.bff.api.base.OperationProcessor;
 

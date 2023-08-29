@@ -1,8 +1,8 @@
 package com.example.bff.core.processors.itemreview;
 
-import com.example.bff.api.operations.itemreview.RegisterNewItemReviewOperation;
-import com.example.bff.api.operations.itemreview.RegisterNewItemReviewRequest;
-import com.example.bff.api.operations.itemreview.RegisterNewItemReviewResponse;
+import com.example.bff.api.operations.itemreview.register.RegisterNewItemReviewOperation;
+import com.example.bff.api.operations.itemreview.register.RegisterNewItemReviewRequest;
+import com.example.bff.api.operations.itemreview.register.RegisterNewItemReviewResponse;
 import com.example.bff.core.exceptions.UserNotFoundException;
 import com.example.bff.persistence.entities.ItemReview;
 import com.example.bff.persistence.entities.User;

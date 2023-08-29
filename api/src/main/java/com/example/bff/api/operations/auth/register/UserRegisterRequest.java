@@ -7,21 +7,20 @@ import lombok.*;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class UserRegisterRequest implements OperationInput {
     //@Email
-    private String email;
+    private final String email;
 
     @NotEmpty
-    private String password;
+    private final String password;
 
     @NotEmpty
-    private String phoneNumber;
+    private final String phoneNumber;
 
     @NotEmpty
-    private String firstName;
+    private final String firstName;
 
     @NotEmpty
-    private String lastName;
+    private final String lastName;
 }

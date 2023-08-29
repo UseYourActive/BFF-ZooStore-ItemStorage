@@ -6,9 +6,8 @@ import lombok.*;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class PaymentRequest implements OperationInput {
-    private String creditCardNumber;
-    private String email;
+    private final String creditCardNumber;
+    private final String email;
 }

@@ -6,8 +6,7 @@ import lombok.*;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class RemoveItemFromCartRequest implements OperationInput {
-    private String targetItemId;
+    private final String targetItemId;
 }

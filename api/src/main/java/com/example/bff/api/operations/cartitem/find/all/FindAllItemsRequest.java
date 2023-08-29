@@ -2,15 +2,17 @@ package com.example.bff.api.operations.cartitem.find.all;
 
 import com.example.bff.api.base.OperationInput;
 import lombok.*;
+import org.hibernate.validator.constraints.UUID;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class FindAllItemsRequest implements OperationInput {
-    private Boolean includeArchived;
-    private Integer pageNumber;
-    private Integer numberOfItemsPerPage;
-    private @org.hibernate.validator.constraints.UUID String tagId;
+    private final Boolean includeArchived;
+    private final Integer pageNumber;
+    private final Integer numberOfItemsPerPage;
+
+    @UUID
+    private final String tagId;
 }

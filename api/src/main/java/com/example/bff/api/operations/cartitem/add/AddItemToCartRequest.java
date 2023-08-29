@@ -7,11 +7,10 @@ import lombok.*;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class AddItemToCartRequest implements OperationInput {
-    private String itemId;
+    private final String itemId;
 
     @Positive
-    private Integer quantity;
+    private final Integer quantity;
 }
